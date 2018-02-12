@@ -37,11 +37,11 @@ export default () => (
   <Router>
     <Switch>
       <PrivateRoute path="/dashboard" component={Dashboard} />
-      <Route path="/" exact component={Home} />
       <Route path="/auth" exact component={Auth} />
       <Route path="/login" exact component={Login} />
       <Layout>
-        <Route path="/loan" exact component={Loan} />
+        <Route path="/" exact component={Home} />
+        <Route path="/privatlan" exact component={Loan} />
       </Layout>
     </Switch>
   </Router>

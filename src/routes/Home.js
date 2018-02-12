@@ -24,10 +24,10 @@ import NavLink from '../components/NavLink';
  * such things.
  */
 const HomepageHeading = ({ mobile }) => (
-  <Container text>
+  <Container>
     <Header
       as="h1"
-      content="Find a deal that could save you a bundle"
+      content="Jämför och hitta bästa privatlån, snabblån eller billån med oss"
       inverted
       style={{
         fontSize: mobile ? '2em' : '4em',
@@ -37,11 +37,11 @@ const HomepageHeading = ({ mobile }) => (
       }}
     />
     <Button
-      color="orange"
+      color="teal"
       size="huge"
       style={{ marginTop: mobile ? '0.5em' : '1.5em' }}
     >
-      Compare balance transfer cards
+      Jämför privatlån
       <Icon name="right arrow" />
     </Button>
   </Container>
@@ -96,7 +96,7 @@ class DesktopContainer extends Component {
             >
               <Container>
                 <NavLink to="/">Hem</NavLink>
-                <NavLink to="/loan">Privatlån</NavLink>
+                <NavLink to="/privatlan">Privatlån</NavLink>
                 <NavLink to="/snabblån">Snabblån</NavLink>
                 <NavLink to="/smslån">Smslån</NavLink>
                 <Menu.Item position="right">
@@ -308,42 +308,6 @@ const Home = () => (
         <Button as="a" size="large">
           I'm Still Quite Interested
         </Button>
-      </Container>
-    </Segment>
-
-    <Segment inverted vertical style={{ padding: '5em 0em' }}>
-      <Container>
-        <Grid divided inverted stackable>
-          <Grid.Row>
-            <Grid.Column width={3}>
-              <Header inverted as="h4" content="About" />
-              <List link inverted>
-                <List.Item as="a">Sitemap</List.Item>
-                <List.Item as="a">Contact Us</List.Item>
-                <List.Item as="a">Religious Ceremonies</List.Item>
-                <List.Item as="a">Gazebo Plans</List.Item>
-              </List>
-            </Grid.Column>
-            <Grid.Column width={3}>
-              <Header inverted as="h4" content="Services" />
-              <List link inverted>
-                <List.Item as="a">Banana Pre-Order</List.Item>
-                <List.Item as="a">DNA FAQ</List.Item>
-                <List.Item as="a">How To Access</List.Item>
-                <List.Item as="a">Favorite X-Men</List.Item>
-              </List>
-            </Grid.Column>
-            <Grid.Column width={7}>
-              <Header as="h4" inverted>
-                Footer Header
-              </Header>
-              <p>
-                Extra space for a call to action inside the footer that could
-                help re-engage users.
-              </p>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
       </Container>
     </Segment>
   </ResponsiveContainer>
