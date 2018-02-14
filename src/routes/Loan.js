@@ -368,6 +368,7 @@ const Loan = () => (
         </Menu>
       </Form>
       <ResponsiveContainer />
+      <ResponsiveContainer />
     </Container>
   </div>
 );

@@ -23,7 +23,7 @@ const Footer = () => (
             </List>
           </Grid.Column>
           <Grid.Column width={5}>
-            <Header inverted as="h4" content="Services" />
+            <Header inverted as="h4" content="Tjänster" />
             <List link inverted>
               <List.Item as="a">Banana Pre-Order</List.Item>
               <List.Item as="a">DNA FAQ</List.Item>

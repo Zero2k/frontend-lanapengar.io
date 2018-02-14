@@ -12,6 +12,7 @@ import {
   List,
   Menu,
   Input,
+  Form,
   Responsive,
   Segment,
   Sidebar,
@@ -98,7 +99,7 @@ class DesktopContainer extends Component {
                 <NavLink to="/">Hem</NavLink>
                 <NavLink to="/privatlan">Privatlån</NavLink>
                 <NavLink to="/snabblån">Snabblån</NavLink>
-                <NavLink to="/smslån">Smslån</NavLink>
+                <NavLink to="/billan">Billån</NavLink>
                 <Menu.Item position="right">
                   <Button as="a" inverted={!fixed}>
                     Min Profil
@@ -144,7 +145,7 @@ class MobileContainer extends Component {
               Hem
             </Menu.Item>
             <Menu.Item as="a">Privatlån</Menu.Item>
-            <Menu.Item as="a">Snabblån</Menu.Item>
+            <Menu.Item as="a">Billån</Menu.Item>
           </Sidebar>
 
           <Sidebar.Pusher
@@ -179,7 +180,7 @@ class MobileContainer extends Component {
                   </Menu.Item>
                   <Menu.Item position="right">
                     <Button as="a" inverted>
-                      My Profile
+                      Min profil
                     </Button>
                   </Menu.Item>
                 </Menu>
@@ -217,19 +218,19 @@ const Home = () => (
         <Grid.Row>
           <Grid.Column width={8}>
             <Header as="h3" style={{ fontSize: '2em' }}>
-              We Help Companies and Companions
+              Vi jämför lån hos mer än 80 långivare
             </Header>
             <p style={{ fontSize: '1.33em' }}>
-              We can give your company superpowers to do things that they never
-              thought possible. Let us delight your customers and empower your
-              needs... through pure data analytics.
+              Just nu jämför vi lån från mer än 80 olika banker och långivare,
+              ange dina kriterier genom att klicka på Min profil uppe i menyn så
+              hjälper vi dig hitta de lån som du har möjlighet att ansöka om.
             </p>
             <Header as="h3" style={{ fontSize: '2em' }}>
-              We Make Bananas That Can Dance
+              Ansök snabbt och enkelt om att låna pengar
             </Header>
             <p style={{ fontSize: '1.33em' }}>
-              Yes that's right, you thought it was the stuff of dreams, but even
-              bananas can be bioengineered.
+              När du väl har hittat en långivare som passar dina behov kan du
+              enkelt gå direkt till långivarens hemsida och ansöka om lånet.
             </p>
           </Grid.Column>
           <Grid.Column floated="right" width={6}>
@@ -237,13 +238,13 @@ const Home = () => (
               bordered
               rounded
               size="large"
-              src="/assets/images/wireframe/white-image.png"
+              src="https://react.semantic-ui.com/assets/images/wireframe/white-image.png"
             />
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
           <Grid.Column textAlign="center">
-            <Button size="huge">Check Them Out</Button>
+            <Button size="huge">Se alla långivare</Button>
           </Grid.Column>
         </Grid.Row>
       </Grid>
@@ -262,12 +263,28 @@ const Home = () => (
           </Grid.Column>
           <Grid.Column style={{ paddingBottom: '5em', paddingTop: '5em' }}>
             <Header as="h3" style={{ fontSize: '2em' }}>
-              "I shouldn't have gone with their competitor."
+              Få tips och råd om privatekonomi till din <br />e-post varje
+              vecka.
             </Header>
-            <p style={{ fontSize: '1.33em' }}>
-              <Image avatar src="/assets/images/avatar/large/nan.jpg" />
-              <b>Nan</b> Chief Fun Officer Acme Toys
-            </p>
+            <Form
+              widths="equal"
+              onSubmit={this.handleSubmit}
+              style={{ display: 'inline-block' }}
+            >
+              <Form.Group>
+                <Form.Input
+                  placeholder="Namn"
+                  name="name"
+                  onChange={this.handleChange}
+                />
+                <Form.Input
+                  placeholder="E-post"
+                  name="email"
+                  onChange={this.handleChange}
+                />
+                <Form.Button content="Skicka" color="orange" />
+              </Form.Group>
+            </Form>
           </Grid.Column>
         </Grid.Row>
       </Grid>
@@ -294,7 +311,7 @@ const Home = () => (
           horizontal
           style={{ margin: '3em 0em', textTransform: 'uppercase' }}
         >
-          <a href="#">Case Studies</a>
+          <a href="#">Fler Artiklar</a>
         </Divider>
 
         <Header as="h3" style={{ fontSize: '2em' }}>
