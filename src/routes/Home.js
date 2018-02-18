@@ -8,10 +8,7 @@ import {
   Header,
   Icon,
   Image,
-  Dropdown,
-  List,
   Menu,
-  Input,
   Form,
   Responsive,
   Segment,
@@ -19,6 +16,8 @@ import {
   Visibility
 } from 'semantic-ui-react';
 import NavLink from '../components/NavLink';
+
+import bg from '../images/Background_alt5.jpg';
 
 /* eslint-disable react/no-multi-comp */
 /* Heads up! HomepageHeading uses inline styling, however it's not the best practice. Use CSS or styled components for
@@ -28,7 +27,7 @@ const HomepageHeading = ({ mobile }) => (
   <Container>
     <Header
       as="h1"
-      content="Jämför och hitta bästa privatlån, snabblån eller billån med oss"
+      content="Jämför och Hitta Bästa Privatlån, Snabblån eller Billån med oss"
       inverted
       style={{
         fontSize: mobile ? '2em' : '4em',
@@ -79,8 +78,7 @@ class DesktopContainer extends Component {
             style={{
               minHeight: 700,
               padding: '1em 0em',
-              background:
-                'url(https://www.money.co.uk/images/homepage/cinemagraph/balance-cards-1280px.jpg) no-repeat',
+              background: `url(${bg}) 50% no-repeat`,
               backgroundSize: 'cover'
             }}
             vertical
@@ -93,7 +91,7 @@ class DesktopContainer extends Component {
               style={{
                 border: 'none'
               }}
-              size="large"
+              size="huge"
             >
               <Container>
                 <NavLink to="/">Hem</NavLink>
@@ -159,8 +157,7 @@ class MobileContainer extends Component {
               style={{
                 minHeight: 350,
                 padding: '1em 0em',
-                background:
-                  'url(https://www.money.co.uk/images/homepage/cinemagraph/balance-cards-1280px.jpg) no-repeat',
+                background: `url(${bg}) 50% no-repeat`,
                 backgroundSize: 'cover'
               }}
               vertical
@@ -244,7 +241,9 @@ const Home = () => (
         </Grid.Row>
         <Grid.Row>
           <Grid.Column textAlign="center">
-            <Button size="huge">Se alla långivare</Button>
+            <Button color="teal" size="huge">
+              Se alla långivare
+            </Button>
           </Grid.Column>
         </Grid.Row>
       </Grid>
@@ -301,7 +300,7 @@ const Home = () => (
           whitespace and generic content that can seem massive, monolithic and
           worth your attention.
         </p>
-        <Button as="a" size="large">
+        <Button as="a" size="large" color="teal">
           Read More
         </Button>
 
@@ -322,7 +321,7 @@ const Home = () => (
           filler content, but it's really true. It took years of gene splicing
           and combinatory DNA research, but our bananas can really dance.
         </p>
-        <Button as="a" size="large">
+        <Button as="a" size="large" color="teal">
           I'm Still Quite Interested
         </Button>
       </Container>

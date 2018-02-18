@@ -13,6 +13,7 @@ import Home from './Home';
 import Dashboard from './Dashboard';
 import Login from './Login';
 import Loan from './Loan';
+import Article from './Article';
 import Auth from './Auth';
 // import Logout from './Logout';
 
@@ -42,6 +43,7 @@ export default () => (
       <Layout>
         <Route path="/" exact component={Home} />
         <Route path="/privatlan" exact component={Loan} />
+        <Route path="/artiklar" exact component={Article} />
       </Layout>
     </Switch>
   </Router>
