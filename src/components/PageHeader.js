@@ -12,7 +12,8 @@ import {
   Visibility
 } from 'semantic-ui-react';
 
-import Navbar from './Navbar';
+import Navbar from './Navbar/Navbar';
+import SidebarNavbar from './Navbar/SidebarNavbar';
 
 /* eslint-disable react/no-multi-comp */
 /* Heads up! HomepageHeading uses inline styling, however it's not the best practice. Use CSS or styled components for
@@ -182,38 +183,7 @@ class MobileContainer extends Component {
             vertical
             visible={sidebarOpened}
           >
-            <Menu.Item as="a" active>
-              Hem
-            </Menu.Item>
-            <Menu.Item as="a">Lån</Menu.Item>
-            {/* <Menu.Item>
-              <Input placeholder="Search..." />
-            </Menu.Item>
-
-            <Menu.Item>
-              Hem
-              <Menu.Menu>
-                <Menu.Item name="search" onClick={this.handleItemClick}>
-                  Search
-                </Menu.Item>
-              </Menu.Menu>
-            </Menu.Item>
-
-            <Menu.Item name="browse" onClick={this.handleItemClick}>
-              <Icon name="grid layout" />
-              Privatlån
-            </Menu.Item>
-            <Menu.Item name="messages" onClick={this.handleItemClick}>
-              Snabblån
-            </Menu.Item>
-
-            <Dropdown item text="Fler lån">
-              <Dropdown.Menu>
-                <Dropdown.Item icon="edit" text="Edit Profile" />
-                <Dropdown.Item icon="globe" text="Choose Language" />
-                <Dropdown.Item icon="settings" text="Account Settings" />
-              </Dropdown.Menu>
-            </Dropdown> */}
+            <SidebarNavbar />
           </Sidebar>
 
           <Sidebar.Pusher

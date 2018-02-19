@@ -15,7 +15,8 @@ import {
   Sidebar,
   Visibility
 } from 'semantic-ui-react';
-import NavLink from '../components/NavLink';
+import Navbar from '../components/Navbar/Navbar';
+import SidebarNavbar from '../components/Navbar/SidebarNavbar';
 
 import bg from '../images/Background_alt5.jpg';
 
@@ -93,17 +94,7 @@ class DesktopContainer extends Component {
               }}
               size="huge"
             >
-              <Container>
-                <NavLink to="/">Hem</NavLink>
-                <NavLink to="/privatlan">Privatlån</NavLink>
-                <NavLink to="/snabblån">Snabblån</NavLink>
-                <NavLink to="/billan">Billån</NavLink>
-                <Menu.Item position="right">
-                  <Button as="a" inverted={!fixed}>
-                    Min Profil
-                  </Button>
-                </Menu.Item>
-              </Container>
+              <Navbar fixed={fixed} />
             </Menu>
             <HomepageHeading />
           </Segment>
@@ -139,11 +130,7 @@ class MobileContainer extends Component {
             vertical
             visible={sidebarOpened}
           >
-            <Menu.Item as="a" active>
-              Hem
-            </Menu.Item>
-            <Menu.Item as="a">Privatlån</Menu.Item>
-            <Menu.Item as="a">Billån</Menu.Item>
+            <SidebarNavbar />
           </Sidebar>
 
           <Sidebar.Pusher
