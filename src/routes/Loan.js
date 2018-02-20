@@ -9,7 +9,6 @@ import {
   Responsive,
   Table,
   Checkbox,
-  Dropdown,
   Icon,
   Menu,
   Form
@@ -199,11 +198,6 @@ const ResponsiveContainer = () => (
   </div>
 );
 
-const options = [
-  { key: 'm', text: 'Male', value: 'male' },
-  { key: 'f', text: 'Female', value: 'female' }
-];
-
 const Loan = () => (
   <div>
     <ServiceHeader
@@ -212,7 +206,7 @@ const Loan = () => (
     />
     <Container style={{ paddingBottom: '20px' }}>
       <Form>
-        <Menu size="medium" style={{ marginTop: '20px' }}>
+        <Menu size="large" style={{ marginTop: '20px' }}>
           <Menu.Item>
             <Form.Field
               control={Checkbox}

@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import {
-  Button,
   Container,
   Header,
   Icon,
@@ -15,6 +14,7 @@ import {
 
 import Navbar from './Navbar/Navbar';
 import SidebarNavbar from './Navbar/SidebarNavbar';
+import MobileNavbar from './Navbar/MobileNavbar';
 
 /* eslint-disable react/no-multi-comp */
 /* Heads up! HomepageHeading uses inline styling, however it's not the best practice. Use CSS or styled components for
@@ -273,26 +273,7 @@ class MobileContainer extends Component {
               }}
               vertical
             >
-              <Container>
-                <Menu
-                  inverted
-                  pointing
-                  secondary
-                  style={{
-                    border: 'none'
-                  }}
-                  size="large"
-                >
-                  <Menu.Item onClick={this.handleToggle}>
-                    <Icon name="sidebar" />
-                  </Menu.Item>
-                  <Menu.Item position="right">
-                    <Button as="a" inverted>
-                      Min Profil
-                    </Button>
-                  </Menu.Item>
-                </Menu>
-              </Container>
+              <MobileNavbar handleToggle={this.handleToggle} />
               <HomepageHeading mobile title={title} subTitle={subTitle} />
             </Segment>
 

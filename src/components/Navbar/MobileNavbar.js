@@ -1,17 +1,41 @@
 import React from 'react';
-import { Button, Menu, Icon } from 'semantic-ui-react';
+import { Container, Button, Menu, Icon } from 'semantic-ui-react';
+import ProfileModal from '../ProfileModal';
 
-const MobileNavbar = () => (
-  <div>
-    <Menu.Item onClick={this.handleToggle}>
-      <Icon name="sidebar" />
-    </Menu.Item>
-    <Menu.Item position="right">
-      <Button as="a" inverted>
-        Min profil
-      </Button>
-    </Menu.Item>
-  </div>
-);
+export default class MobileNavbar extends React.Component {
+  state = {
+    openSettings: false
+  };
 
-export default MobileNavbar;
+  toggleSettingsModal = () => {
+    this.setState(state => ({ openSettings: !state.openSettings }));
+  };
+
+  render() {
+    const { openSettings } = this.state;
+    const { handleToggle } = this.props;
+    return (
+      <Container>
+        <Menu
+          inverted
+          pointing
+          secondary
+          size="large"
+          style={{
+            border: 'none'
+          }}
+        >
+          <Menu.Item onClick={handleToggle}>
+            <Icon name="sidebar" />
+          </Menu.Item>
+          <Menu.Item position="right">
+            <Button onClick={this.toggleSettingsModal} inverted>
+              Min profil
+            </Button>
+          </Menu.Item>
+        </Menu>
+        <ProfileModal onClose={this.toggleSettingsModal} open={openSettings} />
+      </Container>
+    );
+  }
+}

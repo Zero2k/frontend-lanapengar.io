@@ -15,8 +15,10 @@ import {
   Sidebar,
   Visibility
 } from 'semantic-ui-react';
+
 import Navbar from '../components/Navbar/Navbar';
 import SidebarNavbar from '../components/Navbar/SidebarNavbar';
+import MobileNavbar from '../components/Navbar/MobileNavbar';
 
 import bg from '../images/Background_alt5.jpg';
 
@@ -149,26 +151,7 @@ class MobileContainer extends Component {
               }}
               vertical
             >
-              <Container>
-                <Menu
-                  inverted
-                  pointing
-                  secondary
-                  size="large"
-                  style={{
-                    border: 'none'
-                  }}
-                >
-                  <Menu.Item onClick={this.handleToggle}>
-                    <Icon name="sidebar" />
-                  </Menu.Item>
-                  <Menu.Item position="right">
-                    <Button as="a" inverted>
-                      Min profil
-                    </Button>
-                  </Menu.Item>
-                </Menu>
-              </Container>
+              <MobileNavbar handleToggle={this.handleToggle} />
               <HomepageHeading mobile />
             </Segment>
 

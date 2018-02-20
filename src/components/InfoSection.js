@@ -7,12 +7,20 @@ const Info = () => (
       <Grid.Column width={12}>
         <Header as="h2">Så får du bäst ränta på privatlånet</Header>
         <p style={{ fontSize: '16px' }}>
-        Nunc ac ligula fringilla, tristique ipsum id, facilisis turpis. Phasellus id arcu quis nunc posuere porta. Donec in quam suscipit, malesuada orci eu, laoreet lorem. Duis nulla neque, feugiat a erat vel, mollis maximus sem. Cras vitae condimentum eros. Maecenas quis massa mollis, vulputate massa convallis, aliquet lorem. Donec dolor risus, efficitur vel blandit ut, semper non velit. Nulla molestie id odio eu semper. Suspendisse felis lorem, dignissim id ullamcorper in, egestas vitae nulla. Proin nec massa a justo ullamcorper sollicitudin nec pharetra ante.
+          Nunc ac ligula fringilla, tristique ipsum id, facilisis turpis.
+          Phasellus id arcu quis nunc posuere porta. Donec in quam suscipit,
+          malesuada orci eu, laoreet lorem. Duis nulla neque, feugiat a erat
+          vel, mollis maximus sem. Cras vitae condimentum eros. Maecenas quis
+          massa mollis, vulputate massa convallis, aliquet lorem. Donec dolor
+          risus, efficitur vel blandit ut, semper non velit. Nulla molestie id
+          odio eu semper. Suspendisse felis lorem, dignissim id ullamcorper in,
+          egestas vitae nulla. Proin nec massa a justo ullamcorper sollicitudin
+          nec pharetra ante.
         </p>
       </Grid.Column>
       <Grid.Column width={4}>
         <Header as="h3" dividing>
-          <h3>Relaterade artiklar</h3>
+          Relaterade artiklar
         </Header>
         <List divided relaxed>
           <List.Item>
