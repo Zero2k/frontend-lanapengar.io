@@ -11,6 +11,7 @@ import {
   Sidebar,
   Visibility
 } from 'semantic-ui-react';
+import { connect } from 'react-redux';
 
 import Navbar from './Navbar/Navbar';
 import SidebarNavbar from './Navbar/SidebarNavbar';
@@ -307,4 +308,4 @@ ResponsiveContainer.propTypes = {
   children: PropTypes.node
 };
 
-export default ResponsiveContainer;
+export default connect(state => ({ isSet: state.profile.isSet }))(ResponsiveContainer);
