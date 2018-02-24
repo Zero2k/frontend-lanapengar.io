@@ -7,6 +7,7 @@ import {
   Responsive,
   Icon
 } from 'semantic-ui-react';
+
 import PageHeader from '../components/PageHeader';
 
 const CardItem = ({ perRow }) => (

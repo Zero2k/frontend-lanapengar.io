@@ -32,7 +32,7 @@ const defaultState = {
 };
 
 class ProfileModal extends React.Component {
-  state = defaultState;
+  state = this.props.profile.isSet ? this.props.profile : defaultState;
 
   submit = async () => {
     await this.setState({ isSet: true });
@@ -49,6 +49,8 @@ class ProfileModal extends React.Component {
       isSet: false
     }));
 
+  numberWithSpaces = x => x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+
   render() {
     const { open, onClose } = this.props;
     const { values: { loanAmount, type, term } } = this.state;
@@ -58,7 +60,7 @@ class ProfileModal extends React.Component {
         <Modal.Content>
           <Form size="large">
             <Form.Input
-              label={`Belopp: ${loanAmount} kr `}
+              label={`Belopp: ${this.numberWithSpaces(loanAmount)} kr `}
               min={1000}
               max={100000}
               name="loanAmount"
@@ -106,6 +108,12 @@ class ProfileModal extends React.Component {
                 control={Checkbox}
                 label="Första lånet"
                 value="3"
+                onChange={this.handleChange}
+              />
+              <Form.Field
+                control={Checkbox}
+                label="Kräver inkomst"
+                value="4"
                 onChange={this.handleChange}
               />
             </Form.Group>

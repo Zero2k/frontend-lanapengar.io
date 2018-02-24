@@ -4,7 +4,7 @@ import { Button, Container, Menu } from 'semantic-ui-react';
 import NavLink from './NavLink';
 import ProfileModal from '../ProfileModal';
 
-export default class Navbar extends React.Component {
+class Navbar extends React.Component {
   state = {
     openSettings: false
   };
@@ -15,7 +15,9 @@ export default class Navbar extends React.Component {
 
   render() {
     const { openSettings } = this.state;
-    const { fixed } = this.props;
+    const { fixed, profile } = this.props;
+    const { isSet } = profile;
+
     return (
       <Container>
         <NavLink to="/">Hem</NavLink>
@@ -23,12 +25,22 @@ export default class Navbar extends React.Component {
         <NavLink to="/snabblan">Snabblån</NavLink>
         <NavLink to="/billan">Billån</NavLink>
         <Menu.Item position="right">
-          <Button onClick={this.toggleSettingsModal} inverted={!fixed}>
+          <Button
+            onClick={this.toggleSettingsModal}
+            inverted={!fixed}
+            color={isSet ? 'orange' : null}
+          >
             Min Profil
           </Button>
         </Menu.Item>
-        <ProfileModal onClose={this.toggleSettingsModal} open={openSettings} />
+        <ProfileModal
+          onClose={this.toggleSettingsModal}
+          open={openSettings}
+          profile={profile}
+        />
       </Container>
     );
   }
 }
+
+export default Navbar;

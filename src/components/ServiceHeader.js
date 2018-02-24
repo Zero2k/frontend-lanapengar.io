@@ -133,9 +133,10 @@ class DesktopContainer extends Component {
   showFixedMenu = () => this.setState({ fixed: true });
 
   render() {
-    const { children, title, subTitle } = this.props;
+    const {
+      children, title, subTitle, profile
+    } = this.props;
     const { fixed } = this.state;
-
     return (
       <Responsive {...Responsive.onlyComputer}>
         <Visibility
@@ -165,7 +166,7 @@ class DesktopContainer extends Component {
               }}
               size="huge"
             >
-              <Navbar fixed={fixed} />
+              <Navbar fixed={fixed} profile={profile} />
             </Menu>
             <HomepageHeading title={title} subTitle={subTitle} />
           </Segment>
@@ -188,7 +189,9 @@ class TabletContainer extends Component {
   showFixedMenu = () => this.setState({ fixed: true });
 
   render() {
-    const { children, title, subTitle } = this.props;
+    const {
+      children, title, subTitle, profile
+    } = this.props;
     const { fixed } = this.state;
 
     return (
@@ -219,7 +222,7 @@ class TabletContainer extends Component {
               }}
               size="large"
             >
-              <Navbar fixed={fixed} />
+              <Navbar fixed={fixed} profile={profile} />
             </Menu>
             <HomepageHeading title={title} subTitle={subTitle} />
           </Segment>
@@ -242,7 +245,9 @@ class MobileContainer extends Component {
     this.setState({ sidebarOpened: !this.state.sidebarOpened });
 
   render() {
-    const { children, title, subTitle } = this.props;
+    const {
+      children, title, subTitle, profile
+    } = this.props;
     const { sidebarOpened } = this.state;
 
     return (
@@ -274,7 +279,10 @@ class MobileContainer extends Component {
               }}
               vertical
             >
-              <MobileNavbar handleToggle={this.handleToggle} />
+              <MobileNavbar
+                handleToggle={this.handleToggle}
+                profile={profile}
+              />
               <HomepageHeading mobile title={title} subTitle={subTitle} />
             </Segment>
 
@@ -290,15 +298,17 @@ MobileContainer.propTypes = {
   children: PropTypes.node
 };
 
-const ResponsiveContainer = ({ children, title, subTitle }) => (
+const ResponsiveContainer = ({
+  children, title, subTitle, profile
+}) => (
   <div>
-    <DesktopContainer title={title} subTitle={subTitle}>
+    <DesktopContainer title={title} subTitle={subTitle} profile={profile}>
       {children}
     </DesktopContainer>
-    <TabletContainer title={title} subTitle={subTitle}>
+    <TabletContainer title={title} subTitle={subTitle} profile={profile}>
       {children}
     </TabletContainer>
-    <MobileContainer title={title} subTitle={subTitle}>
+    <MobileContainer title={title} subTitle={subTitle} profile={profile}>
       {children}
     </MobileContainer>
   </div>
@@ -308,4 +318,4 @@ ResponsiveContainer.propTypes = {
   children: PropTypes.node
 };
 
-export default connect(state => ({ isSet: state.profile.isSet }))(ResponsiveContainer);
+export default connect(state => ({ profile: state.profile }))(ResponsiveContainer);

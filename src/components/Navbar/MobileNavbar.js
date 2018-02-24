@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Button, Menu, Icon } from 'semantic-ui-react';
 import ProfileModal from '../ProfileModal';
 
-export default class MobileNavbar extends React.Component {
+class MobileNavbar extends React.Component {
   state = {
     openSettings: false
   };
@@ -13,7 +13,8 @@ export default class MobileNavbar extends React.Component {
 
   render() {
     const { openSettings } = this.state;
-    const { handleToggle } = this.props;
+    const { handleToggle, profile } = this.props;
+    const { isSet } = profile;
     return (
       <Container>
         <Menu
@@ -29,13 +30,23 @@ export default class MobileNavbar extends React.Component {
             <Icon name="sidebar" />
           </Menu.Item>
           <Menu.Item position="right">
-            <Button onClick={this.toggleSettingsModal} inverted>
+            <Button
+              onClick={this.toggleSettingsModal}
+              inverted
+              color={isSet ? 'orange' : null}
+            >
               Min profil
             </Button>
           </Menu.Item>
         </Menu>
-        <ProfileModal onClose={this.toggleSettingsModal} open={openSettings} />
+        <ProfileModal
+          onClose={this.toggleSettingsModal}
+          open={openSettings}
+          profile={profile}
+        />
       </Container>
     );
   }
 }
+
+export default MobileNavbar;

@@ -13,6 +13,7 @@ import {
   Menu,
   Form
 } from 'semantic-ui-react';
+
 import ServiceHeader from '../components/ServiceHeader';
 
 import Info from '../components/InfoSection';
@@ -198,11 +199,12 @@ const ResponsiveContainer = () => (
   </div>
 );
 
-const Loan = () => (
+const Loan = ({ profile }) => (
   <div>
     <ServiceHeader
       title="Jämför lån"
       subTitle="Vilken typ av lån letar du efter?"
+      profile={profile}
     />
     <Container style={{ paddingBottom: '20px' }}>
       <Form>
