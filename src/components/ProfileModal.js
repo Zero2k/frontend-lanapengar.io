@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Button, Modal, Select, Checkbox } from 'semantic-ui-react';
+import { Form, Button, Modal, Select } from 'semantic-ui-react';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -20,6 +20,12 @@ const optionsMonth = [
   { key: '5', text: '36 månader', value: '36' },
   { key: '6', text: '48 månader', value: '48' },
   { key: '7', text: '60 månader', value: '60' }
+];
+
+const optionsRequirements = [
+  { key: '1', text: 'Betalningsnmärkning', value: '1' },
+  { key: '2', text: 'Utan UC', value: '2' },
+  { key: '3', text: 'Första lånet', value: '3' }
 ];
 
 const defaultState = {
@@ -89,31 +95,13 @@ class ProfileModal extends React.Component {
                 value={term}
               />
             </Form.Group>
-            <Form.Group inline>
-              <label>Övrigt</label>
+            <Form.Group widths="equal">
               <Form.Field
-                control={Checkbox}
-                label="Betalningsnmärkning"
-                value="1"
-                checked
-                onChange={this.handleChange}
-              />
-              <Form.Field
-                control={Checkbox}
-                label="Utan UC"
-                value="2"
-                onChange={this.handleChange}
-              />
-              <Form.Field
-                control={Checkbox}
-                label="Första lånet"
-                value="3"
-                onChange={this.handleChange}
-              />
-              <Form.Field
-                control={Checkbox}
-                label="Kräver inkomst"
-                value="4"
+                control={Select}
+                multiple="true"
+                label="Övrigt"
+                options={optionsRequirements}
+                name="requirements"
                 onChange={this.handleChange}
               />
             </Form.Group>

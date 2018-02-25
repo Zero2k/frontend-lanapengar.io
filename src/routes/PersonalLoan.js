@@ -14,7 +14,7 @@ import {
   Form
 } from 'semantic-ui-react';
 
-import ServiceHeader from '../components/ServiceHeader';
+import PageHeader from '../components/PageHeader';
 
 import Info from '../components/InfoSection';
 
@@ -201,9 +201,9 @@ const ResponsiveContainer = () => (
 
 const Loan = () => (
   <div>
-    <ServiceHeader
-      title="Jämför lån"
-      subTitle="Vilken typ av lån letar du efter?"
+    <PageHeader
+      title="Jämför privatlån"
+      subTitle="These unsecured loans can be used to borrow up to £50,000 to repay over a number of years. You could get a better rate and cheaper borrowing if you compare personal loans before you apply."
     />
     <Container style={{ paddingBottom: '20px' }}>
       <Form>

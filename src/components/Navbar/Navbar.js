@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Container, Menu } from 'semantic-ui-react';
+import { Button, Container, Menu, Dropdown } from 'semantic-ui-react';
 
 import NavLink from './NavLink';
 import ProfileModal from '../ProfileModal';
@@ -20,10 +20,16 @@ class Navbar extends React.Component {
 
     return (
       <Container>
-        <NavLink to="/">Hem</NavLink>
-        <NavLink to="/privatlan">Privatlån</NavLink>
-        <NavLink to="/snabblan">Snabblån</NavLink>
-        <NavLink to="/billan">Billån</NavLink>
+        <Menu.Item header>lanapengar.io</Menu.Item>
+        <NavLink to="/">Startsida</NavLink>
+        <Dropdown item text="Jämför lån">
+          <Dropdown.Menu>
+            <NavLink to="/lan">Alla lån</NavLink>
+            <NavLink to="/privatlan">Privatlån</NavLink>
+            <NavLink to="/snabblan">Snabblån</NavLink>
+            <NavLink to="/billan">Billån</NavLink>
+          </Dropdown.Menu>
+        </Dropdown>
         <Menu.Item position="right">
           <Button
             onClick={this.toggleSettingsModal}
