@@ -16,6 +16,7 @@ import Loan from './Loan';
 import PersonalLoan from './PersonalLoan';
 import Article from './Article';
 import Auth from './Auth';
+import EditLender from './EditLender';
 // import Logout from './Logout';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
@@ -38,7 +39,12 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 export default () => (
   <Router>
     <Switch>
-      <PrivateRoute path="/dashboard" component={Dashboard} />
+      <PrivateRoute path="/dashboard" exact component={Dashboard} />
+      <PrivateRoute
+        path="/dashboard/lender/edit/:name"
+        exact
+        component={EditLender}
+      />
       <Route path="/auth" exact component={Auth} />
       <Route path="/login" exact component={Login} />
       <Layout>
