@@ -2,28 +2,26 @@ import React from 'react';
 import { Input, Form, Checkbox, Button, Dropdown } from 'semantic-ui-react';
 
 const defaultState = {
-  values: {
-    name: '',
-    logo: '',
-    url: '',
-    loan_types: '',
-    description: '',
-    information: '',
-    amount_min: 0,
-    amount_max: 0,
-    intrest_min: 0,
-    intrest_max: 0,
-    term_min: 0,
-    term_max: 0,
-    fee_min: 0,
-    fee_max: 0,
-    require_annual_income: false,
-    min_age: 0,
-    max_age: 0,
-    credit_rating: '',
-    permanent_resident: true,
-    security: false
-  }
+  name: '',
+  logo: '',
+  url: '',
+  loan_types: '',
+  description: '',
+  information: '',
+  amount_min: 0,
+  amount_max: 0,
+  intrest_min: 0,
+  intrest_max: 0,
+  term_min: 0,
+  term_max: 0,
+  fee_min: 0,
+  fee_max: 0,
+  require_annual_income: false,
+  min_age: 0,
+  max_age: 0,
+  credit_rating: '',
+  permanent_resident: true,
+  security: false
 };
 
 const loanTypes = [
@@ -55,21 +53,41 @@ class CustomForm extends React.Component {
     super(props);
     const { data = {} } = props;
     this.state = {
-      values: {
-        ...defaultState.values,
-        ...data
-      }
+      ...defaultState,
+      ...data
     };
   }
 
   onChangeText = (e, { name, value }) =>
-    this.setState({ values: { ...this.state.values, [name]: value } });
+    this.setState({ ...this.state, [name]: value });
 
   submit = async () => {};
 
+  handleCheckBox = (e, { name }) => {
+    this.setState(prevState => ({
+      ...this.state,
+      [name]: !prevState[name]
+    }));
+  };
+
   render() {
-    const { values } = this.state;
-    console.log(this.props.data);
+    const {
+      name,
+      logo,
+      url,
+      amount_min,
+      amount_max,
+      intrest_min,
+      intrest_max,
+      min_age,
+      max_age,
+      credit_rating,
+      loan_types,
+      description,
+      require_annual_income,
+      permanent_resident,
+      security
+    } = this.state;
 
     return (
       <div>
@@ -77,7 +95,7 @@ class CustomForm extends React.Component {
           <Form.Group widths="equal">
             <Form.Field
               control={Input}
-              defaultValue={values.name}
+              defaultValue={name}
               onChange={this.onChangeText}
               name="name"
               label="Name"
@@ -85,7 +103,7 @@ class CustomForm extends React.Component {
             />
             <Form.Field
               control={Input}
-              defaultValue={values.logo}
+              defaultValue={logo}
               onChange={this.onChangeText}
               name="logo"
               label="Logo"
@@ -93,7 +111,7 @@ class CustomForm extends React.Component {
             />
             <Form.Field
               control={Input}
-              defaultValue={values.url}
+              defaultValue={url}
               onChange={this.onChangeText}
               name="url"
               label="Url"
@@ -103,7 +121,7 @@ class CustomForm extends React.Component {
           <Form.Group widths="equal">
             <Form.Field
               control={Input}
-              defaultValue={values.amount_min}
+              defaultValue={amount_min}
               onChange={this.onChangeText}
               name="amount_min"
               label="Min amount"
@@ -111,7 +129,7 @@ class CustomForm extends React.Component {
             />
             <Form.Field
               control={Input}
-              defaultValue={values.amount_max}
+              defaultValue={amount_max}
               onChange={this.onChangeText}
               name="amount_max"
               label="Max amount"
@@ -121,7 +139,7 @@ class CustomForm extends React.Component {
           <Form.Group widths="equal">
             <Form.Field
               control={Input}
-              defaultValue={values.intrest_min}
+              defaultValue={intrest_min}
               onChange={this.onChangeText}
               name="intrest_min"
               label="Min intrest"
@@ -129,7 +147,7 @@ class CustomForm extends React.Component {
             />
             <Form.Field
               control={Input}
-              defaultValue={values.intrest_max}
+              defaultValue={intrest_max}
               onChange={this.onChangeText}
               name="intrest_max"
               label="Max intrest"
@@ -139,7 +157,7 @@ class CustomForm extends React.Component {
           <Form.Group widths="equal">
             <Form.Field
               control={Input}
-              defaultValue={values.min_age}
+              defaultValue={min_age}
               onChange={this.onChangeText}
               name="min_age"
               label="Min age"
@@ -147,7 +165,7 @@ class CustomForm extends React.Component {
             />
             <Form.Field
               control={Input}
-              defaultValue={values.max_age}
+              defaultValue={max_age}
               onChange={this.onChangeText}
               name="max_age"
               label="Max age"
@@ -157,7 +175,7 @@ class CustomForm extends React.Component {
           <Form.Group widths="equal">
             <Form.Field
               control={Input}
-              defaultValue={values.credit_rating}
+              defaultValue={credit_rating}
               onChange={this.onChangeText}
               name="credit_rating"
               label="Credit rating"
@@ -172,7 +190,7 @@ class CustomForm extends React.Component {
               closeOnBlur
               selection
               label="Select loan"
-              defaultValue={values.loan_types}
+              defaultValue={loan_types}
               options={loanTypes}
               name="loan_types"
             />
@@ -180,7 +198,7 @@ class CustomForm extends React.Component {
           <Form.Group widths="equal">
             <Form.Field
               control={Input}
-              defaultValue={values.description}
+              defaultValue={description}
               onChange={this.onChangeText}
               name="description"
               label="Description"
@@ -198,22 +216,27 @@ class CustomForm extends React.Component {
             <label>Requirements</label>
             <Form.Field
               control={Checkbox}
-              checked={values.require_annual_income}
+              checked={require_annual_income}
               label="Income"
-              value="require_annual_income"
-              onChange={this.onChangeText}
+              name="require_annual_income"
+              onChange={this.handleCheckBox}
+              toggle
             />
             <Form.Field
               control={Checkbox}
+              checked={permanent_resident}
               label="Resident"
-              value="2"
-              onChange={this.handleChange}
+              name="permanent_resident"
+              onChange={this.handleCheckBox}
+              toggle
             />
             <Form.Field
               control={Checkbox}
+              checked={security}
               label="Security"
-              value="3"
-              onChange={this.handleChange}
+              name="security"
+              onChange={this.handleCheckBox}
+              toggle
             />
           </Form.Group>
           <Form.Field control={Button}>Save</Form.Field>

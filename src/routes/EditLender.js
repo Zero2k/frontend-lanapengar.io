@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  Container,
-  Menu,
-  Input,
-  Tab,
-  Dimmer,
-  Loader
-} from 'semantic-ui-react';
+import { Container, Menu, Input, Tab, Dimmer, Loader } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -63,8 +56,13 @@ const EditLender = ({ singleLenderQuery: { loading, lenderByName } }) => {
   );
 };
 
+/* const editLenderMutation = gql``; */
+
 export default compose(
-  // graphql(coinQuery, { name: 'coinQuery', options: { fetchPolicy: 'cache-and-network' } }),
+  /* graphql(editLenderMutation, {
+    name: 'editLenderMutation',
+    options: { fetchPolicy: 'cache-and-network' }
+  }), */
   graphql(singleLenderQuery, {
     name: 'singleLenderQuery',
     options: props => ({
