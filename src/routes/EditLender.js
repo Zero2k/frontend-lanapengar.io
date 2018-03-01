@@ -7,8 +7,8 @@ import { singleLenderQuery } from '../graphql/lender';
 
 import FormLender from '../components/Form/FormLender';
 
-const EditLender = ({ singleLenderQuery: { loading, lenderByName } }) => {
-  if (loading || !lenderByName) {
+const EditLender = ({ singleLenderQuery: { loading, lenderById } }) => {
+  if (loading || !lenderById) {
     return (
       <Dimmer active>
         <Loader>Loading</Loader>
@@ -16,7 +16,7 @@ const EditLender = ({ singleLenderQuery: { loading, lenderByName } }) => {
     );
   }
 
-  const { data } = lenderByName;
+  const { data } = lenderById;
 
   return (
     <div>
@@ -67,7 +67,7 @@ export default compose(
     name: 'singleLenderQuery',
     options: props => ({
       variables: {
-        name: props.match.params.name
+        id: props.match.params.id
       }
     })
   }))(EditLender);

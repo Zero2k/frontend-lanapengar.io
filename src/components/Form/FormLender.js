@@ -1,5 +1,6 @@
 import React from 'react';
 import { Input, Form, Checkbox, Button, Dropdown } from 'semantic-ui-react';
+import TextArea from 'semantic-ui-react/dist/commonjs/addons/TextArea/TextArea';
 
 const defaultState = {
   name: '',
@@ -10,8 +11,8 @@ const defaultState = {
   information: '',
   amount_min: 0,
   amount_max: 0,
-  intrest_min: 0,
-  intrest_max: 0,
+  interest_min: 0,
+  interest_max: 0,
   term_min: 0,
   term_max: 0,
   fee_min: 0,
@@ -77,13 +78,16 @@ class CustomForm extends React.Component {
       url,
       amount_min,
       amount_max,
-      intrest_min,
-      intrest_max,
+      interest_min,
+      interest_max,
+      term_min,
+      term_max,
       min_age,
       max_age,
       credit_rating,
       loan_types,
       description,
+      information,
       require_annual_income,
       permanent_resident,
       security
@@ -97,6 +101,7 @@ class CustomForm extends React.Component {
               control={Input}
               defaultValue={name}
               onChange={this.onChangeText}
+              type="text"
               name="name"
               label="Name"
               placeholder="Name"
@@ -105,6 +110,7 @@ class CustomForm extends React.Component {
               control={Input}
               defaultValue={logo}
               onChange={this.onChangeText}
+              type="text"
               name="logo"
               label="Logo"
               placeholder="Logo"
@@ -113,6 +119,7 @@ class CustomForm extends React.Component {
               control={Input}
               defaultValue={url}
               onChange={this.onChangeText}
+              type="text"
               name="url"
               label="Url"
               placeholder="Url"
@@ -122,6 +129,7 @@ class CustomForm extends React.Component {
             <Form.Field
               control={Input}
               defaultValue={amount_min}
+              type="number"
               onChange={this.onChangeText}
               name="amount_min"
               label="Min amount"
@@ -130,6 +138,7 @@ class CustomForm extends React.Component {
             <Form.Field
               control={Input}
               defaultValue={amount_max}
+              type="number"
               onChange={this.onChangeText}
               name="amount_max"
               label="Max amount"
@@ -139,17 +148,19 @@ class CustomForm extends React.Component {
           <Form.Group widths="equal">
             <Form.Field
               control={Input}
-              defaultValue={intrest_min}
+              defaultValue={interest_min}
+              type="number"
               onChange={this.onChangeText}
-              name="intrest_min"
+              name="interest_min"
               label="Min intrest"
               placeholder="Min intrest"
             />
             <Form.Field
               control={Input}
-              defaultValue={intrest_max}
+              defaultValue={interest_max}
+              type="number"
               onChange={this.onChangeText}
-              name="intrest_max"
+              name="interest_max"
               label="Max intrest"
               placeholder="Max intrest"
             />
@@ -157,7 +168,28 @@ class CustomForm extends React.Component {
           <Form.Group widths="equal">
             <Form.Field
               control={Input}
+              defaultValue={term_min}
+              type="number"
+              onChange={this.onChangeText}
+              name="term_min"
+              label="Min term"
+              placeholder="Min term"
+            />
+            <Form.Field
+              control={Input}
+              defaultValue={term_max}
+              type="number"
+              onChange={this.onChangeText}
+              name="term_max"
+              label="Max term"
+              placeholder="Max term"
+            />
+          </Form.Group>
+          <Form.Group widths="equal">
+            <Form.Field
+              control={Input}
               defaultValue={min_age}
+              type="number"
               onChange={this.onChangeText}
               name="min_age"
               label="Min age"
@@ -166,6 +198,7 @@ class CustomForm extends React.Component {
             <Form.Field
               control={Input}
               defaultValue={max_age}
+              type="number"
               onChange={this.onChangeText}
               name="max_age"
               label="Max age"
@@ -173,16 +206,6 @@ class CustomForm extends React.Component {
             />
           </Form.Group>
           <Form.Group widths="equal">
-            <Form.Field
-              control={Input}
-              defaultValue={credit_rating}
-              onChange={this.onChangeText}
-              name="credit_rating"
-              label="Credit rating"
-              placeholder="Credit rating"
-            />
-          </Form.Group>
-          <Form.Group>
             <Form.Field
               control={Dropdown}
               onChange={this.onChangeText}
@@ -194,15 +217,36 @@ class CustomForm extends React.Component {
               options={loanTypes}
               name="loan_types"
             />
+            <Form.Field
+              control={Input}
+              defaultValue={credit_rating}
+              type="text"
+              onChange={this.onChangeText}
+              name="credit_rating"
+              label="Credit rating"
+              placeholder="Credit rating"
+            />
           </Form.Group>
           <Form.Group widths="equal">
             <Form.Field
-              control={Input}
+              control={TextArea}
               defaultValue={description}
               onChange={this.onChangeText}
+              type="text"
               name="description"
               label="Description"
               placeholder="Description"
+            />
+          </Form.Group>
+          <Form.Group widths="equal">
+            <Form.Field
+              readOnly
+              control={TextArea}
+              defaultValue={information}
+              onChange={this.onChangeText}
+              name="information"
+              label="Information"
+              placeholder="Information"
             />
           </Form.Group>
           <p>

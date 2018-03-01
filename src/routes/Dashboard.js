@@ -67,7 +67,7 @@ const Dashboard = ({ lendersQuery: { loading, lenders } }) => {
                   <Button.Group basic size="small">
                     <Button
                       as={Link}
-                      to={`/dashboard/lender/edit/${lender.name}`}
+                      to={`/dashboard/lender/edit/${lender.id}`}
                       icon="edit"
                     />
                     <Button icon="remove" />

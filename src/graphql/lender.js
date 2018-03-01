@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export const singleLenderQuery = gql`
-  query($name: String!) {
-    lenderByName(name: $name) {
+  query($id: Int!) {
+    lenderById(id: $id) {
       success
       data {
         id

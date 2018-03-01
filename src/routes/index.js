@@ -41,7 +41,7 @@ export default () => (
     <Switch>
       <PrivateRoute path="/dashboard" exact component={Dashboard} />
       <PrivateRoute
-        path="/dashboard/lender/edit/:name"
+        path="/dashboard/lender/edit/:id"
         exact
         component={EditLender}
       />
