@@ -18,8 +18,7 @@ export const singleLenderQuery = gql`
         interest_max
         term_min
         term_max
-        fee_min
-        fee_max
+        fee
         require_annual_income
         min_age
         max_age

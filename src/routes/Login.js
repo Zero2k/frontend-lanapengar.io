@@ -40,7 +40,7 @@ class Login extends React.Component {
     if (success) {
       localStorage.setItem('token', token);
       localStorage.setItem('refreshToken', refreshToken);
-      this.props.history.push('/auth');
+      this.props.history.push('/dashboard');
     } else {
       const err = {};
       errors.forEach(({ path, message }) => {

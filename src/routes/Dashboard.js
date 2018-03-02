@@ -32,6 +32,7 @@ const Dashboard = ({ lendersQuery: { loading, lenders } }) => {
           <Container>
             <Menu.Item name="Start" onClick={this.handleItemClick} />
             <Menu.Item name="Lenders" as={Link} to="/dashboard" />
+            <Menu.Item name="Posts" />
             <Menu.Menu position="right">
               <Menu.Item>
                 <Input icon="search" placeholder="Search..." />
@@ -57,11 +58,11 @@ const Dashboard = ({ lendersQuery: { loading, lenders } }) => {
 
           <Table.Body>
             {list.map(lender => (
-              <Table.Row>
+              <Table.Row key={lender.id}>
                 <Table.Cell width={2}>{lender.name}</Table.Cell>
                 <Table.Cell width={3}>{lender.loan_types}</Table.Cell>
-                <Table.Cell width={2}>{lender.amount_max}</Table.Cell>
                 <Table.Cell width={2}>{lender.amount_min}</Table.Cell>
+                <Table.Cell width={2}>{lender.amount_max}</Table.Cell>
                 <Table.Cell>{lender.url}</Table.Cell>
                 <Table.Cell width={1}>
                   <Button.Group basic size="small">
@@ -80,7 +81,7 @@ const Dashboard = ({ lendersQuery: { loading, lenders } }) => {
           <Table.Footer fullWidth>
             <Table.Row>
               <Table.HeaderCell colSpan="3">
-                <Menu floated="left" pagination>
+                <Menu pagination>
                   <Menu.Item as="a" icon>
                     <Icon name="left chevron" />
                   </Menu.Item>

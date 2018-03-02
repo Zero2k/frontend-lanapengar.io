@@ -15,8 +15,7 @@ const defaultState = {
   interest_max: 0,
   term_min: 0,
   term_max: 0,
-  fee_min: 0,
-  fee_max: 0,
+  fee: 0,
   require_annual_income: false,
   min_age: 0,
   max_age: 0,
@@ -62,7 +61,9 @@ class CustomForm extends React.Component {
   onChangeText = (e, { name, value }) =>
     this.setState({ ...this.state, [name]: value });
 
-  submit = async () => {};
+  submit = async () => {
+    this.props.submit(this.state);
+  };
 
   handleCheckBox = (e, { name }) => {
     this.setState(prevState => ({
@@ -70,6 +71,35 @@ class CustomForm extends React.Component {
       [name]: !prevState[name]
     }));
   };
+
+  /* calculateApr = (fee, loan_types) => {
+    let apr;
+    let amount;
+    let term;
+    if (loan_types === 'privatlan') {
+      apr = 5.2;
+      amount = 100000;
+      term = 5;
+    } else if (loan_types === 'snabblan') {
+      apr = 8;
+      amount = 20000;
+      term = 1;
+    } else if (loan_types === 'billan') {
+      apr = 7;
+      amount = 200000;
+      term = 3;
+    }
+    // prettier-ignore
+    const interest = Math.round(((amount * apr) / 100) / 12);
+    const total = parseInt(interest) * 12 * parseInt(term);
+    const totalWithFee = parseInt(total) + parseInt(fee);
+    return `Den representativa räntan är ${apr}%
+    (fast) så om du lånar ${amount} över ${term} år med en ränta på ${apr}%, så
+    kommer du att betala tillbaka ${interest} kr per månad och totalt ${total}
+    kr. ${fee &&
+      `En uppläggningsavgift på ${fee} kr tillkommer. `} Så den total kostnad
+    blir ${!totalWithFee ? total : totalWithFee} kr`;
+  }; */
 
   render() {
     const {
@@ -86,12 +116,15 @@ class CustomForm extends React.Component {
       max_age,
       credit_rating,
       loan_types,
+      fee,
       description,
       information,
       require_annual_income,
       permanent_resident,
       security
     } = this.state;
+
+    /* this.state.information = this.calculateApr(fee, loan_types); */
 
     return (
       <div>
@@ -219,12 +252,12 @@ class CustomForm extends React.Component {
             />
             <Form.Field
               control={Input}
-              defaultValue={credit_rating}
-              type="text"
+              defaultValue={fee}
+              type="number"
               onChange={this.onChangeText}
-              name="credit_rating"
-              label="Credit rating"
-              placeholder="Credit rating"
+              name="fee"
+              label="Fee"
+              placeholder="Fee"
             />
           </Form.Group>
           <Form.Group widths="equal">
@@ -238,24 +271,10 @@ class CustomForm extends React.Component {
               placeholder="Description"
             />
           </Form.Group>
-          <Form.Group widths="equal">
-            <Form.Field
-              readOnly
-              control={TextArea}
-              defaultValue={information}
-              onChange={this.onChangeText}
-              name="information"
-              label="Information"
-              placeholder="Information"
-            />
-          </Form.Group>
-          <p>
-            <b>Representativt exempel:</b> Den representativa räntan är 2,8%
-            (fast) så om du lånar 75.000 över 5 år med en ränta på 2,8%, så
-            kommer du att betala tillbaka 1339 kr per månad och totalt 80.038
-            kr. En uppläggningsavgift på 200 kr tillkommer. Så den total kostnad
-            blir 80.238 kr
-          </p>
+          {/* <p>
+            <b>Representativt exempel: </b>
+            {this.state.information}
+          </p> */}
           <Form.Group inline>
             <label>Requirements</label>
             <Form.Field
@@ -269,7 +288,7 @@ class CustomForm extends React.Component {
             <Form.Field
               control={Checkbox}
               checked={permanent_resident}
-              label="Resident"
+              label="Swedish Resident"
               name="permanent_resident"
               onChange={this.handleCheckBox}
               toggle
@@ -282,8 +301,18 @@ class CustomForm extends React.Component {
               onChange={this.handleCheckBox}
               toggle
             />
+            <Form.Field
+              control={Checkbox}
+              checked={credit_rating}
+              label="Credit Rating (Godkänner betalningsanmärkning)"
+              name="credit_rating"
+              onChange={this.handleCheckBox}
+              toggle
+            />
           </Form.Group>
-          <Form.Field control={Button}>Save</Form.Field>
+          <Form.Field control={Button} onClick={this.submit}>
+            Save
+          </Form.Field>
         </Form>
       </div>
     );
