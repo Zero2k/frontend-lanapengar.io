@@ -17,9 +17,9 @@ const defaultState = {
   term_max: 0,
   fee: 0,
   require_annual_income: false,
-  min_age: 0,
+  min_age: 18,
   max_age: 0,
-  credit_rating: '',
+  credit_rating: false,
   permanent_resident: true,
   security: false
 };
@@ -72,7 +72,7 @@ class CustomForm extends React.Component {
     }));
   };
 
-  /* calculateApr = (fee, loan_types) => {
+  calculateApr = (fee, loan_types) => {
     let apr;
     let amount;
     let term;
@@ -99,7 +99,7 @@ class CustomForm extends React.Component {
     kr. ${fee &&
       `En uppläggningsavgift på ${fee} kr tillkommer. `} Så den total kostnad
     blir ${!totalWithFee ? total : totalWithFee} kr`;
-  }; */
+  };
 
   render() {
     const {
@@ -118,13 +118,10 @@ class CustomForm extends React.Component {
       loan_types,
       fee,
       description,
-      information,
       require_annual_income,
       permanent_resident,
       security
     } = this.state;
-
-    /* this.state.information = this.calculateApr(fee, loan_types); */
 
     return (
       <div>
@@ -271,10 +268,6 @@ class CustomForm extends React.Component {
               placeholder="Description"
             />
           </Form.Group>
-          {/* <p>
-            <b>Representativt exempel: </b>
-            {this.state.information}
-          </p> */}
           <Form.Group inline>
             <label>Requirements</label>
             <Form.Field

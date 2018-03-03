@@ -1,10 +1,11 @@
 import React from 'react';
-import { Container, Menu, Input, Tab, Dimmer, Loader } from 'semantic-ui-react';
+import { Container, Tab, Dimmer, Loader } from 'semantic-ui-react';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
-import { singleLenderQuery } from '../graphql/lender';
+import { singleLenderQuery } from '../../../graphql/lender';
 
-import FormLender from '../components/Form/FormLender';
+import FormLender from '../../../components/Form/FormLender';
+import AdminNavbar from '../../../components/Navbar/AdminNavbar';
 
 class EditLender extends React.Component {
   submit = async (values) => {
@@ -27,7 +28,7 @@ class EditLender extends React.Component {
       return;
     }
 
-    this.props.history.push('/dashboard');
+    this.props.history.push('/dashboard/lender');
   };
 
   render() {
@@ -45,19 +46,7 @@ class EditLender extends React.Component {
 
     return (
       <div>
-        <Menu pointing>
-          <Container>
-            <Menu.Item name="Start" onClick={this.handleItemClick} />
-            <Menu.Item name="Lenders" />
-            <Menu.Item name="Posts" />
-            <Menu.Menu position="right">
-              <Menu.Item>
-                <Input icon="search" placeholder="Search..." />
-              </Menu.Item>
-              <Menu.Item name="logout" onClick={this.handleItemClick} />
-            </Menu.Menu>
-          </Container>
-        </Menu>
+        <AdminNavbar />
         <Container style={{ paddingTop: '20px' }}>
           <h3>Edit - {data.name}</h3>
           <Tab
@@ -140,7 +129,7 @@ export default compose(
   }),
   graphql(singleLenderQuery, {
     name: 'singleLenderQuery',
-    options: props => ({
+    options: (props) => ({
       fetchPolicy: 'network-only',
       variables: {
         id: props.match.params.id

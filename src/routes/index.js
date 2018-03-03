@@ -10,13 +10,17 @@ import { isAuthenticated } from '../utils/auth';
 
 import Layout from './Layout';
 import Home from './Home';
-import Dashboard from './Dashboard';
 import Login from './Login';
 import Loan from './Loan';
 import PersonalLoan from './PersonalLoan';
 import Article from './Article';
+
+/* Admin */
+import Dashboard from './Admin/Dashboard';
+import Lender from './Admin/Lender/Lender';
 import Auth from './Auth';
-import EditLender from './EditLender';
+import EditLender from './Admin/Lender/EditLender';
+import NewLender from './Admin/Lender/NewLender';
 // import Logout from './Logout';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
@@ -40,11 +44,13 @@ export default () => (
   <Router>
     <Switch>
       <PrivateRoute path="/dashboard" exact component={Dashboard} />
+      <PrivateRoute path="/dashboard/lender" exact component={Lender} />
       <PrivateRoute
         path="/dashboard/lender/edit/:id"
         exact
         component={EditLender}
       />
+      <PrivateRoute path="/dashboard/lender/new" exact component={NewLender} />
       <Route path="/auth" exact component={Auth} />
       <Route path="/login" exact component={Login} />
       <Layout>
