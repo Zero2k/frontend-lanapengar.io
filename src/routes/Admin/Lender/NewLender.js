@@ -61,7 +61,7 @@ const newLenderMutation = gql`
     $description: String
     $information: String
     $url: String
-    $loan_types: String
+    $loan_types: String!
     $amount_min: Int
     $amount_max: Int
     $interest_min: Float

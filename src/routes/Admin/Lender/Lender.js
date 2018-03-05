@@ -18,7 +18,7 @@ class Lender extends React.Component {
     hasMoreItems: true
   };
   render() {
-    const { lendersQuery: { loading, lenders } } = this.props;
+    const { data: { loading, lenders } } = this.props;
     if (loading || !lenders) {
       return (
         <Dimmer active>
@@ -26,7 +26,7 @@ class Lender extends React.Component {
         </Dimmer>
       );
     }
-    const { data } = lenders;
+    /* const { data } = lenders; */
 
     return (
       <div>
@@ -46,7 +46,7 @@ class Lender extends React.Component {
             </Table.Header>
 
             <Table.Body>
-              {data.map((lender) => (
+              {lenders.map((lender) => (
                 <Table.Row key={lender.id}>
                   <Table.Cell width={2}>{lender.name}</Table.Cell>
                   <Table.Cell width={3}>{lender.loan_types}</Table.Cell>
@@ -73,29 +73,27 @@ class Lender extends React.Component {
                   {this.state.hasMoreItems && (
                     <Button
                       onClick={() => {
-                        this.props.lendersQuery.fetchMore({
+                        this.props.data.fetchMore({
                           variables: {
-                            offset: this.props.lendersQuery.lenders.data.length
+                            offset: lenders.length
                           },
-                          updateQuery: (
-                            previousResult,
-                            { fetchMoreResult }
-                          ) => {
+                          updateQuery: (prev, { fetchMoreResult }) => {
                             if (!fetchMoreResult) {
-                              return previousResult;
+                              return prev;
                             }
 
-                            if (fetchMoreResult.lenders.data.length < 10) {
+                            if (fetchMoreResult.lenders.length < 20) {
                               this.setState({ hasMoreItems: false });
                             }
 
-                            return {
-                              ...previousResult,
-                              data: [
-                                ...previousResult.lenders.data,
-                                ...fetchMoreResult.lenders.data
+                            const res = {
+                              ...prev,
+                              lenders: [
+                                ...prev.lenders,
+                                ...fetchMoreResult.lenders
                               ]
                             };
+                            return res;
                           }
                         });
                       }}
@@ -214,8 +212,8 @@ class Lender extends React.Component {
   );
 }; */
 
-const lendersQuery = gql`
-  query($offset: Int!) {
+/* const lendersQuery = gql`
+  query($offset: Int) {
     lenders(offset: $offset) {
       success
       data {
@@ -228,10 +226,22 @@ const lendersQuery = gql`
       }
     }
   }
+`; */
+
+const lendersQuery = gql`
+  query($offset: Int) {
+    lenders(offset: $offset) {
+      id
+      name
+      loan_types
+      amount_max
+      amount_min
+      url
+    }
+  }
 `;
 
 export default graphql(lendersQuery, {
-  name: 'lendersQuery',
   options: (props) => ({
     fetchPolicy: 'network-only',
     variables: {

@@ -6,7 +6,7 @@ const defaultState = {
   name: '',
   logo: '',
   url: '',
-  loan_types: '',
+  loan_types: 'privatlan',
   description: '',
   information: '',
   amount_min: 0,
@@ -66,13 +66,13 @@ class CustomForm extends React.Component {
   };
 
   handleCheckBox = (e, { name }) => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       ...this.state,
       [name]: !prevState[name]
     }));
   };
 
-  calculateApr = (fee, loan_types) => {
+  /* calculateApr = (fee, loan_types) => {
     let apr;
     let amount;
     let term;
@@ -99,7 +99,7 @@ class CustomForm extends React.Component {
     kr. ${fee &&
       `En uppläggningsavgift på ${fee} kr tillkommer. `} Så den total kostnad
     blir ${!totalWithFee ? total : totalWithFee} kr`;
-  };
+  }; */
 
   render() {
     const {

@@ -2,13 +2,14 @@ import React from 'react';
 import { Container, Tab, Dimmer, Loader } from 'semantic-ui-react';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
-import { singleLenderQuery } from '../../../graphql/lender';
+import { singleLenderQuery, editLenderMutation } from '../../../graphql/lender';
 
 import FormLender from '../../../components/Form/FormLender';
 import AdminNavbar from '../../../components/Navbar/AdminNavbar';
+import LoanTable from '../../../components/LoanTable';
 
 class EditLender extends React.Component {
-  submit = async (values) => {
+  submitEdit = async (values) => {
     console.log(values);
 
     try {
@@ -31,6 +32,28 @@ class EditLender extends React.Component {
     this.props.history.push('/dashboard/lender');
   };
 
+  submitLoan = async (values) => {
+    if (!values.id) {
+      try {
+        await this.props.addLoanMutation({
+          variables: {
+            ...values
+          }
+          /* update: (store, { data: { updateProduct } }) => {
+            const data = store.readQuery({ query: singleLenderQuery });
+            data.products = data.products.map(x => (x.id === updateProduct.id ? updateProduct : x));
+            store.writeQuery({ query: singleLenderQuery, data });
+          } */
+        });
+      } catch (err) {
+        console.log(err);
+        return;
+      }
+    } else {
+      console.log('Edit loan');
+    }
+  };
+
   render() {
     const { singleLenderQuery: { loading, lenderById } } = this.props;
 
@@ -43,6 +66,7 @@ class EditLender extends React.Component {
     }
 
     const { data } = lenderById;
+    const { loans } = data;
 
     return (
       <div>
@@ -56,14 +80,16 @@ class EditLender extends React.Component {
                 menuItem: 'Edit',
                 render: () => (
                   <Tab.Pane attached={false}>
-                    <FormLender data={data} submit={this.submit} />
+                    <FormLender data={data} submit={this.submitEdit} />
                   </Tab.Pane>
                 )
               },
               {
                 menuItem: 'Loans',
                 render: () => (
-                  <Tab.Pane attached={false}>Tab 2 Content</Tab.Pane>
+                  <Tab.Pane attached={false}>
+                    <LoanTable loans={loans} submitLoan={this.submitLoan} />
+                  </Tab.Pane>
                 )
               }
             ]}
@@ -74,51 +100,9 @@ class EditLender extends React.Component {
   }
 }
 
-const editLenderMutation = gql`
-  mutation(
-    $id: Int!
-    $name: String
-    $logo: String
-    $description: String
-    $information: String
-    $url: String
-    $loan_types: String
-    $amount_min: Int
-    $amount_max: Int
-    $interest_min: Float
-    $interest_max: Float
-    $term_min: Int
-    $term_max: Int
-    $fee: Int
-    $require_annual_income: Boolean
-    $min_age: Int
-    $max_age: Int
-    $credit_rating: Boolean
-    $security: Boolean
-    $permanent_resident: Boolean
-  ) {
-    updateLender(
-      id: $id
-      name: $name
-      logo: $logo
-      description: $description
-      information: $information
-      url: $url
-      loan_types: $loan_types
-      amount_min: $amount_min
-      amount_max: $amount_max
-      interest_min: $interest_min
-      interest_max: $interest_max
-      term_min: $term_min
-      term_max: $term_max
-      fee: $fee
-      require_annual_income: $require_annual_income
-      min_age: $min_age
-      max_age: $max_age
-      credit_rating: $credit_rating
-      security: $security
-      permanent_resident: $permanent_resident
-    )
+const addLoanMutation = gql`
+  mutation($amount: Int!, $lenderId: Int!) {
+    addLoan(amount: $amount, lenderId: $lenderId)
   }
 `;
 
@@ -133,6 +117,15 @@ export default compose(
       fetchPolicy: 'network-only',
       variables: {
         id: props.match.params.id
+      }
+    })
+  }),
+  graphql(addLoanMutation, {
+    name: 'addLoanMutation',
+    options: (props) => ({
+      variables: {
+        fetchPolicy: 'no-cache',
+        lenderId: props.match.params.id
       }
     })
   })
