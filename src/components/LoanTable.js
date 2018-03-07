@@ -28,22 +28,19 @@ const loanTypes = [
 class LoanTable extends React.Component {
   state = { id: '', amount: 0, loan_type: '' };
 
-  handleChange = (e, { name, value }) => this.setState({ [name]: value });
-
-  onItemClick = (item, e) => {
-    const { id, amount, loan_type } = item;
+  onItemClick = (loan) => {
+    const { id, amount, loan_type } = loan;
     this.setState({ id, amount, loan_type });
   };
 
+  handleChange = (e, { name, value }) => this.setState({ [name]: value });
+
   handleSubmit = () => {
     this.props.submitLoan(this.state);
-    /* const { id, amount, loan_type } = this.state; */
-    /* if (!id) {
-      console.log('New loan');
-    } else {
-      console.log('Edit loan');
-      this.props.submitLoan(this.state, false);
-    } */
+  };
+
+  handleDelete = (loan) => {
+    this.props.deleteLoan(loan);
   };
 
   render() {
@@ -73,10 +70,13 @@ class LoanTable extends React.Component {
                 <Table.Cell width={1}>
                   <Button.Group basic size="small">
                     <Button
-                      onClick={this.onItemClick.bind(this, loan)}
+                      onClick={() => this.onItemClick(loan)}
                       icon="edit"
                     />
-                    <Button icon="remove" />
+                    <Button
+                      onClick={() => this.handleDelete(loan)}
+                      icon="remove"
+                    />
                   </Button.Group>
                 </Table.Cell>
               </Table.Row>

@@ -10,8 +10,6 @@ import LoanTable from '../../../components/LoanTable';
 
 class EditLender extends React.Component {
   submitEdit = async (values) => {
-    console.log(values);
-
     try {
       await this.props.editLenderMutation({
         variables: {
@@ -47,10 +45,31 @@ class EditLender extends React.Component {
         });
       } catch (err) {
         console.log(err);
-        return;
       }
     } else {
-      console.log('Edit loan');
+      try {
+        await this.props.editLoanMutation({
+          variables: {
+            ...values
+          }
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
+  deleteLoan = async (values) => {
+    if (values.id) {
+      try {
+        await this.props.deleteLoanMutation({
+          variables: {
+            id: values.id
+          }
+        });
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
@@ -88,7 +107,11 @@ class EditLender extends React.Component {
                 menuItem: 'Loans',
                 render: () => (
                   <Tab.Pane attached={false}>
-                    <LoanTable loans={loans} submitLoan={this.submitLoan} />
+                    <LoanTable
+                      loans={loans}
+                      submitLoan={this.submitLoan}
+                      deleteLoan={this.deleteLoan}
+                    />
                   </Tab.Pane>
                 )
               }
@@ -103,6 +126,23 @@ class EditLender extends React.Component {
 const addLoanMutation = gql`
   mutation($amount: Int!, $lenderId: Int!) {
     addLoan(amount: $amount, lenderId: $lenderId)
+  }
+`;
+
+const editLoanMutation = gql`
+  mutation($id: Int!, $amount: Int!, $loan_type: String, $lenderId: Int!) {
+    updateLoan(
+      id: $id
+      amount: $amount
+      loan_type: $loan_type
+      lenderId: $lenderId
+    )
+  }
+`;
+
+const deleteLoanMutation = gql`
+  mutation($id: Int!) {
+    deleteLoan(id: $id)
   }
 `;
 
@@ -128,5 +168,20 @@ export default compose(
         lenderId: props.match.params.id
       }
     })
+  }),
+  graphql(editLoanMutation, {
+    name: 'editLoanMutation',
+    options: (props) => ({
+      variables: {
+        fetchPolicy: 'no-cache',
+        lenderId: props.match.params.id
+      }
+    })
+  }),
+  graphql(deleteLoanMutation, {
+    name: 'deleteLoanMutation',
+    options: {
+      fetchPolicy: 'no-cache'
+    }
   })
 )(EditLender);

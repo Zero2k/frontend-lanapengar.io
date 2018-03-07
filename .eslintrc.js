@@ -10,8 +10,9 @@ module.exports = {
     'import/prefer-default-export': 0,
     'jsx-a11y/anchor-is-valid': 0,
     'no-underscore-dangle': 0,
-    'max-len': 0
-    'prefer-stateless-function': 0
+    'max-len': 0,
+    'prefer-stateless-function': 0,
+    'arrow-parens': 0
   },
   parser: 'babel-eslint'
 };
