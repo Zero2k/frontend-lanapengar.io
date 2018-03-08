@@ -1,12 +1,16 @@
 import React from 'react';
 import { Container, Tab, Dimmer, Loader } from 'semantic-ui-react';
 import { graphql, compose } from 'react-apollo';
-import gql from 'graphql-tag';
 import { singleLenderQuery, editLenderMutation } from '../../../graphql/lender';
+import {
+  addLoanMutation,
+  editLoanMutation,
+  deleteLoanMutation
+} from '../../../graphql/loan';
 
 import FormLender from '../../../components/Form/FormLender';
 import AdminNavbar from '../../../components/Navbar/AdminNavbar';
-import LoanTable from '../../../components/LoanTable';
+import Table from '../../../components/LoanTable/Table';
 
 class EditLender extends React.Component {
   submitEdit = async (values) => {
@@ -107,7 +111,7 @@ class EditLender extends React.Component {
                 menuItem: 'Loans',
                 render: () => (
                   <Tab.Pane attached={false}>
-                    <LoanTable
+                    <Table
                       loans={loans}
                       submitLoan={this.submitLoan}
                       deleteLoan={this.deleteLoan}
@@ -122,29 +126,6 @@ class EditLender extends React.Component {
     );
   }
 }
-
-const addLoanMutation = gql`
-  mutation($amount: Int!, $lenderId: Int!) {
-    addLoan(amount: $amount, lenderId: $lenderId)
-  }
-`;
-
-const editLoanMutation = gql`
-  mutation($id: Int!, $amount: Int!, $loan_type: String, $lenderId: Int!) {
-    updateLoan(
-      id: $id
-      amount: $amount
-      loan_type: $loan_type
-      lenderId: $lenderId
-    )
-  }
-`;
-
-const deleteLoanMutation = gql`
-  mutation($id: Int!) {
-    deleteLoan(id: $id)
-  }
-`;
 
 export default compose(
   graphql(editLenderMutation, {

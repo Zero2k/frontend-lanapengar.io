@@ -1,5 +1,6 @@
 import React from 'react';
 import { Table, Button, Form, Dropdown } from 'semantic-ui-react';
+import TableRow from './TableRow';
 
 const loanTypes = [
   {
@@ -28,7 +29,7 @@ const loanTypes = [
 class LoanTable extends React.Component {
   state = { id: '', amount: 0, loan_type: '' };
 
-  onItemClick = (loan) => {
+  handleEdit = (loan) => {
     const { id, amount, loan_type } = loan;
     this.setState({ id, amount, loan_type });
   };
@@ -42,6 +43,15 @@ class LoanTable extends React.Component {
   handleDelete = (loan) => {
     this.props.deleteLoan(loan);
   };
+
+  renderRows = (loan) => (
+    <TableRow
+      key={loan.id}
+      loan={loan}
+      onEdit={this.handleEdit}
+      onDelete={this.handleDelete}
+    />
+  );
 
   render() {
     const { amount, loan_type } = this.state;
@@ -60,28 +70,7 @@ class LoanTable extends React.Component {
             </Table.Row>
           </Table.Header>
 
-          <Table.Body>
-            {loans.map((loan) => (
-              <Table.Row key={loan.id}>
-                <Table.Cell width={3}>{loan.amount}</Table.Cell>
-                <Table.Cell width={3}>{loan.loan_type}</Table.Cell>
-                <Table.Cell width={3}>Test</Table.Cell>
-                <Table.Cell width={3}>Test</Table.Cell>
-                <Table.Cell width={1}>
-                  <Button.Group basic size="small">
-                    <Button
-                      onClick={() => this.onItemClick(loan)}
-                      icon="edit"
-                    />
-                    <Button
-                      onClick={() => this.handleDelete(loan)}
-                      icon="remove"
-                    />
-                  </Button.Group>
-                </Table.Cell>
-              </Table.Row>
-            ))}
-          </Table.Body>
+          <Table.Body>{loans.map(this.renderRows)}</Table.Body>
         </Table>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group widths={2}>
