@@ -28,17 +28,17 @@ const CalculateApr = ({ fee, loanType }) => {
   let amountEx;
   let term;
   if (loanType === 'privatlan') {
-    apr = 5.2;
+    apr = 4.8;
     amount = 100000;
     amountEx = '100 000';
     term = 5;
   } else if (loanType === 'snabblan') {
-    apr = 8;
+    apr = 12;
     amount = 20000;
     amountEx = '20 000';
     term = 1;
   } else if (loanType === 'billan') {
-    apr = 7;
+    apr = 5.5;
     amount = 200000;
     amountEx = '200 000';
     term = 3;
@@ -293,7 +293,6 @@ const Loan = ({ data: { loading, lenders } }) => {
       </Dimmer>
     );
   }
-  console.log(lenders);
 
   return (
     <div>
