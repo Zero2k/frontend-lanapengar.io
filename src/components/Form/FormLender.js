@@ -72,35 +72,6 @@ class CustomForm extends React.Component {
     }));
   };
 
-  /* calculateApr = (fee, loan_types) => {
-    let apr;
-    let amount;
-    let term;
-    if (loan_types === 'privatlan') {
-      apr = 5.2;
-      amount = 100000;
-      term = 5;
-    } else if (loan_types === 'snabblan') {
-      apr = 8;
-      amount = 20000;
-      term = 1;
-    } else if (loan_types === 'billan') {
-      apr = 7;
-      amount = 200000;
-      term = 3;
-    }
-    // prettier-ignore
-    const interest = Math.round(((amount * apr) / 100) / 12);
-    const total = parseInt(interest) * 12 * parseInt(term);
-    const totalWithFee = parseInt(total) + parseInt(fee);
-    return `Den representativa räntan är ${apr}%
-    (fast) så om du lånar ${amount} över ${term} år med en ränta på ${apr}%, så
-    kommer du att betala tillbaka ${interest} kr per månad och totalt ${total}
-    kr. ${fee &&
-      `En uppläggningsavgift på ${fee} kr tillkommer. `} Så den total kostnad
-    blir ${!totalWithFee ? total : totalWithFee} kr`;
-  }; */
-
   render() {
     const {
       name,

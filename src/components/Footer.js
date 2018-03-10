@@ -17,12 +17,12 @@ const Footer = () => (
           <Grid.Column width={4}>
             <Header inverted as="h4" content="Information" />
             <List link inverted>
-              <List.Item as="a">Om oss</List.Item>
+              <List.Item>Om oss</List.Item>
               <Link to="/artiklar">
-                <List.Item as="a">Artiklar</List.Item>
+                <List.Item>Artiklar</List.Item>
               </Link>
-              <List.Item as="a">Kontakta oss</List.Item>
-              <List.Item as="a">Sidkarta</List.Item>
+              <List.Item>Kontakta oss</List.Item>
+              <List.Item>Sidkarta</List.Item>
             </List>
           </Grid.Column>
           <Grid.Column width={2}>
