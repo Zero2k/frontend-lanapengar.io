@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Container,
   Header,
@@ -40,6 +41,8 @@ const HomepageHeading = ({ mobile }) => (
       color="teal"
       size="huge"
       style={{ marginTop: mobile ? '0.5em' : '1.5em' }}
+      as={Link}
+      to="/privatlan"
     >
       Jämför privatlån
       <Icon name="right arrow" />
@@ -116,9 +119,7 @@ class TabletContainer extends Component {
   showFixedMenu = () => this.setState({ fixed: true });
 
   render() {
-    const {
-      children, profile
-    } = this.props;
+    const { children, profile } = this.props;
     const { fixed } = this.state;
 
     return (
@@ -243,4 +244,4 @@ ResponsiveContainer.propTypes = {
   children: PropTypes.node
 };
 
-export default connect(state => ({ profile: state.profile }))(ResponsiveContainer);
+export default connect((state) => ({ profile: state.profile }))(ResponsiveContainer);

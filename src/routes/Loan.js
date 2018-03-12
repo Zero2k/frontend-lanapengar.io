@@ -1,7 +1,5 @@
 import React from 'react';
 import {
-  Grid,
-  Image,
   Container,
   Button,
   Segment,
@@ -21,40 +19,7 @@ import graphql from 'react-apollo/graphql';
 import ServiceHeader from '../components/ServiceHeader';
 
 import Info from '../components/InfoSection';
-
-const CalculateApr = ({ fee, loanType }) => {
-  let apr;
-  let amount;
-  let amountEx;
-  let term;
-  if (loanType === 'privatlan') {
-    apr = 4.8;
-    amount = 100000;
-    amountEx = '100 000';
-    term = 5;
-  } else if (loanType === 'snabblan') {
-    apr = 12;
-    amount = 20000;
-    amountEx = '20 000';
-    term = 1;
-  } else if (loanType === 'billan') {
-    apr = 5.5;
-    amount = 200000;
-    amountEx = '200 000';
-    term = 3;
-  }
-  // prettier-ignore
-  const interest = Math.round(((amount * apr) / 100) / 12);
-  const total = interest * 12 * term;
-  const totalWithFee = total + fee;
-  return `Den representativa räntan är ${apr}%
-    (fast) så om du lånar ${amountEx} över ${term} år med en ränta på ${apr}%, så
-    kommer du att betala tillbaka ${interest} kr per månad och totalt ${total}
-    kr. ${
-  fee ? `En uppläggningsavgift på ${fee} kr tillkommer. ` : ''
-} Så den total kostnaden blir
-    ${!totalWithFee ? total : totalWithFee} kr`;
-};
+import LoanInfo from '../components/LoanInfo';
 
 const ListDivided = ({ lender }) => (
   <div>
@@ -106,90 +71,6 @@ const ListDivided = ({ lender }) => (
   </div>
 );
 
-const LoanInfo = ({
-  lender, padding, fontSize, buttonSize
-}) => (
-  <div>
-    <h3
-      style={{
-        paddingTop: '10px',
-        paddingLeft: '2em',
-        fontSize: '23px',
-        color: '#00b5ad'
-      }}
-    >
-      {lender.name}
-    </h3>
-    <Grid
-      celled="internally"
-      relaxed
-      textAlign="center"
-      verticalAlign="middle"
-      stackable
-      columns={5}
-    >
-      <Grid.Row>
-        <Grid.Column>
-          <Image
-            src="https://www.money.co.uk/images/logos/129x75/mands-bank-1.png"
-            centered
-          />
-        </Grid.Column>
-        <Grid.Column
-          style={{
-            backgroundColor: '#7f246a',
-            color: '#FFF',
-            padding
-          }}
-        >
-          <span>Lånebelopp</span>
-          <p style={{ fontSize }}>
-            {lender.amount_min} - {lender.amount_max} kr
-          </p>
-        </Grid.Column>
-        <Grid.Column
-          style={{
-            backgroundColor: '#DB4D75',
-            color: '#FFF',
-            padding
-          }}
-        >
-          <span>Ränta</span>
-          <p style={{ fontSize }}>
-            {lender.interest_min}% - {lender.interest_max}%
-          </p>
-        </Grid.Column>
-        <Grid.Column
-          style={{
-            backgroundColor: '#F4793B',
-            color: '#FFF',
-            padding
-          }}
-        >
-          <span>Återbetalningstid</span>
-          <p style={{ fontSize }}>
-            {lender.term_min} år till {lender.term_max} år
-          </p>
-        </Grid.Column>
-        <Grid.Column>
-          <Button circular size={buttonSize} color="teal" fluid>
-            Ansök nu
-          </Button>
-        </Grid.Column>
-      </Grid.Row>
-    </Grid>
-    <p
-      style={{
-        paddingTop: '10px',
-        textAlign: 'center',
-        fontWeight: '700'
-      }}
-    >
-      <CalculateApr fee={lender.fee} loanType={lender.loan_types} />
-    </p>
-  </div>
-);
-
 const Desktop = ({ lenders }) => (
   <div>
     {lenders.map((lender) => (
@@ -205,6 +86,7 @@ const Desktop = ({ lenders }) => (
             >
               <LoanInfo
                 lender={lender}
+                paddingLeft="2em"
                 padding="1.3em"
                 fontSize="17px"
                 buttonSize="big"
@@ -234,7 +116,8 @@ const Tablet = ({ lenders }) => (
             >
               <LoanInfo
                 lender={lender}
-                padding="1.2em"
+                paddingLeft="1em"
+                padding="1.1em"
                 fontSize="14px"
                 buttonSize="small"
               />
@@ -263,7 +146,9 @@ const Mobile = ({ lenders }) => (
             >
               <LoanInfo
                 lender={lender}
+                paddingLeft="0em"
                 padding="1.3em"
+                textAlign="center"
                 fontSize="17px"
                 buttonSize="big"
               />
@@ -310,6 +195,11 @@ const Loan = ({ data: { loading, lenders } }) => {
                 onClick={() => console.log('Clicked')}
               />
             </Menu.Item>
+            <Menu.Menu position="right">
+              <Menu.Item name="help" onClick={() => console.log('Filter')}>
+                Filtrera
+              </Menu.Item>
+            </Menu.Menu>
           </Menu>
         </Form>
         <ResponsiveContainer lenders={lenders} />

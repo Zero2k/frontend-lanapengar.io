@@ -47,7 +47,7 @@ const Home = () => (
         </Grid.Row>
         <Grid.Row>
           <Grid.Column textAlign="center">
-            <Button color="teal" size="huge">
+            <Button color="teal" size="huge" as={Link} to="/lan">
               Se alla långivare
             </Button>
           </Grid.Column>

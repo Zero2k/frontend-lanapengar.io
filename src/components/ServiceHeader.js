@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Container,
   Header,
@@ -21,7 +22,7 @@ import MobileNavbar from './Navbar/MobileNavbar';
 /* Heads up! HomepageHeading uses inline styling, however it's not the best practice. Use CSS or styled components for
  * such things.
  */
-const HomepageHeading = ({ mobile, title, subTitle }) => (
+const ServiceHeader = ({ mobile, title, subTitle }) => (
   <Container>
     <Header
       as="h1"
@@ -57,6 +58,8 @@ const HomepageHeading = ({ mobile, title, subTitle }) => (
           border: '2px solid rgba(255, 255, 255, 0.95)'
         }}
         link
+        as={Link}
+        to="/privatlan"
       >
         <Card.Content
           style={{
@@ -64,7 +67,11 @@ const HomepageHeading = ({ mobile, title, subTitle }) => (
             marginBottom: mobile ? '0.5em' : '1.2em'
           }}
         >
-          <Card.Content content={<Icon name="home" size="massive" />} />
+          <Card.Content
+            content={
+              <Icon style={{ color: '#FFF' }} name="home" size="massive" />
+            }
+          />
           <Card.Header style={{ color: '#FFF' }}>Privatlån</Card.Header>
           <Card.Description style={{ color: '#FFF' }}>
             Låna från 5.000 upp till 500.000 kr i 1 till 5 år. Ränta från 5%
@@ -78,6 +85,8 @@ const HomepageHeading = ({ mobile, title, subTitle }) => (
           border: '2px solid rgba(255, 255, 255, 0.95)'
         }}
         link
+        as={Link}
+        to="/snabblan"
       >
         <Card.Content
           style={{
@@ -85,7 +94,11 @@ const HomepageHeading = ({ mobile, title, subTitle }) => (
             marginBottom: mobile ? '0.5em' : '1.2em'
           }}
         >
-          <Card.Content content={<Icon name="mobile" size="massive" />} />
+          <Card.Content
+            content={
+              <Icon style={{ color: '#FFF' }} name="mobile" size="massive" />
+            }
+          />
           <Card.Header style={{ color: '#FFF' }}>Snabblån</Card.Header>
           <Card.Description style={{ color: '#FFF' }}>
             Låna från 500 upp till 40.000 kr i 3 till 24 månader. Ränta från 12%
@@ -99,6 +112,8 @@ const HomepageHeading = ({ mobile, title, subTitle }) => (
           border: '2px solid rgba(255, 255, 255, 0.95)'
         }}
         link
+        as={Link}
+        to="/billan"
       >
         <Card.Content
           style={{
@@ -106,7 +121,11 @@ const HomepageHeading = ({ mobile, title, subTitle }) => (
             marginBottom: mobile ? '0.5em' : '1.2em'
           }}
         >
-          <Card.Content content={<Icon name="car" size="massive" />} />
+          <Card.Content
+            content={
+              <Icon style={{ color: '#FFF' }} name="car" size="massive" />
+            }
+          />
           <Card.Header style={{ color: '#FFF' }}>Billån</Card.Header>
           <Card.Description style={{ color: '#FFF' }}>
             Låna från 1.000 upp till 500.000 kr i 6 månader till 15 år. Ränta
@@ -118,7 +137,7 @@ const HomepageHeading = ({ mobile, title, subTitle }) => (
   </Container>
 );
 
-HomepageHeading.propTypes = {
+ServiceHeader.propTypes = {
   mobile: PropTypes.bool
 };
 
@@ -167,7 +186,7 @@ class DesktopContainer extends Component {
             >
               <Navbar fixed={fixed} profile={profile} />
             </Menu>
-            <HomepageHeading title={title} subTitle={subTitle} />
+            <ServiceHeader title={title} subTitle={subTitle} />
           </Segment>
         </Visibility>
 
@@ -223,7 +242,7 @@ class TabletContainer extends Component {
             >
               <Navbar fixed={fixed} profile={profile} />
             </Menu>
-            <HomepageHeading title={title} subTitle={subTitle} />
+            <ServiceHeader title={title} subTitle={subTitle} />
           </Segment>
         </Visibility>
 
@@ -282,7 +301,7 @@ class MobileContainer extends Component {
                 handleToggle={this.handleToggle}
                 profile={profile}
               />
-              <HomepageHeading mobile title={title} subTitle={subTitle} />
+              <ServiceHeader mobile title={title} subTitle={subTitle} />
             </Segment>
 
             {children}
@@ -317,4 +336,4 @@ ResponsiveContainer.propTypes = {
   children: PropTypes.node
 };
 
-export default connect(state => ({ profile: state.profile }))(ResponsiveContainer);
+export default connect((state) => ({ profile: state.profile }))(ResponsiveContainer);
