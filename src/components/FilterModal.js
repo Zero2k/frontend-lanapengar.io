@@ -1,10 +1,9 @@
 import React from 'react';
 import { Form, Button, Modal, Select } from 'semantic-ui-react';
+/* import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'; */
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
-import { addProfile } from '../reducers/profile';
+/* import { addProfile } from '../reducers/profile'; */
 
 const options = [
   { key: '1', text: 'Privatlån', value: 'privatlan' },
@@ -22,29 +21,25 @@ const optionsMonth = [
   { key: '7', text: '60 månader', value: '60' }
 ];
 
-const optionsRequirements = [
-  { key: '1', text: 'Betalningsnmärkning', value: '1' },
-  { key: '2', text: 'Utan UC', value: '2' },
-  { key: '3', text: 'Första lånet', value: '3' }
-];
-
 const defaultState = {
   values: {
     loanAmount: 1000,
     type: '',
-    term: ''
+    term: '12'
   },
   isSet: false
 };
 
-class ProfileModal extends React.Component {
-  state = this.props.profile.isSet ? this.props.profile : defaultState;
-  /* state = defaultState; */
+class FilterModal extends React.Component {
+  /* state = this.props.profile.isSet ? this.props.profile : defaultState; */
+  state = defaultState;
 
   submit = async () => {
-    await this.setState({ isSet: true });
-    this.props.addProfileAction(this.state);
-    this.props.onClose();
+    const { onClose } = this.props;
+    /* await this.setState({ isSet: true });
+    await this.props.addProfileAction(this.state); */
+    this.props.data(this.state);
+    onClose();
   };
 
   handleChange = (e, { name, value }) =>
@@ -96,16 +91,6 @@ class ProfileModal extends React.Component {
                 value={term}
               />
             </Form.Group>
-            <Form.Group widths="equal">
-              <Form.Field
-                control={Select}
-                multiple="true"
-                label="Övrigt"
-                options={optionsRequirements}
-                name="requirements"
-                onChange={this.handleChange}
-              />
-            </Form.Group>
           </Form>
         </Modal.Content>
         <Modal.Actions>
@@ -114,7 +99,7 @@ class ProfileModal extends React.Component {
             color="teal"
             labelPosition="right"
             icon="checkmark"
-            content="Spara"
+            content="Sök"
             onClick={this.submit}
           />
         </Modal.Actions>
@@ -123,5 +108,9 @@ class ProfileModal extends React.Component {
   }
 }
 
-export default connect(null, (dispatch) =>
-  bindActionCreators({ addProfileAction: addProfile }, dispatch))(ProfileModal);
+/* export default connect(
+  (state) => ({ profile: state.profile }),
+  (dispatch) => bindActionCreators({ addProfileAction: addProfile }, dispatch)
+)(FilterModal); */
+
+export default FilterModal;

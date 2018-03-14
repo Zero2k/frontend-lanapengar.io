@@ -35,6 +35,29 @@ export const singleLenderQuery = gql`
   }
 `;
 
+export const lendersQuery = gql`
+  query($amount: Int, $term: Int, $offset: Int) {
+    lendersFilter(amount: $amount, term: $term, offset: $offset) {
+      id
+      name
+      url
+      loan_types
+      fee
+      amount_max
+      amount_min
+      interest_max
+      interest_min
+      term_max
+      term_min
+      min_age
+      permanent_resident
+      security
+      credit_rating
+      require_annual_income
+    }
+  }
+`;
+
 export const editLenderMutation = gql`
   mutation(
     $id: Int!

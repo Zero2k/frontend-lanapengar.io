@@ -1,23 +1,23 @@
 import React from 'react';
 import { Grid, Image, Button } from 'semantic-ui-react';
 
-const CalculateApr = ({ fee, loanType }) => {
+const CalculateApr = ({ fee, repInterest, loanType }) => {
   let apr;
   let amount;
   let amountEx;
   let term;
   if (loanType === 'privatlan') {
-    apr = 4.8;
+    apr = repInterest;
     amount = 100000;
     amountEx = '100 000';
     term = 5;
   } else if (loanType === 'snabblan') {
-    apr = 12;
+    apr = repInterest;
     amount = 20000;
     amountEx = '20 000';
     term = 1;
   } else if (loanType === 'billan') {
-    apr = 5.5;
+    apr = repInterest;
     amount = 200000;
     amountEx = '200 000';
     term = 3;
@@ -31,7 +31,7 @@ const CalculateApr = ({ fee, loanType }) => {
     kommer du att betala tillbaka ${interest} kr per månad och totalt ${total}
     kr. ${
   fee ? `En uppläggningsavgift på ${fee} kr tillkommer. ` : ''
-} Så den total kostnaden blir
+} Så den total kostnaden för lånet blir
     ${!totalWithFee ? total : totalWithFee} kr`;
 };
 
@@ -120,7 +120,11 @@ const LoanInfo = ({
         fontWeight: '700'
       }}
     >
-      <CalculateApr fee={lender.fee} loanType={lender.loan_types} />
+      <CalculateApr
+        fee={lender.fee}
+        repInterest={lender.interest_min}
+        loanType={lender.loan_types}
+      />
     </p>
   </div>
 );

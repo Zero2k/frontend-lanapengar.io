@@ -6,7 +6,6 @@ import {
   Popup,
   Responsive,
   Table,
-  Checkbox,
   Icon,
   Menu,
   Form,
@@ -16,6 +15,7 @@ import {
 import gql from 'graphql-tag';
 import graphql from 'react-apollo/graphql';
 
+import FilterModal from '../components/FilterModal';
 import ServiceHeader from '../components/ServiceHeader';
 
 import Info from '../components/InfoSection';
@@ -73,6 +73,11 @@ const ListDivided = ({ lender }) => (
 
 const Desktop = ({ lenders }) => (
   <div>
+    {!lenders.length && (
+      <h3 style={{ textAlign: 'center', paddingTop: '20px' }}>
+        No lenders found
+      </h3>
+    )}
     {lenders.map((lender) => (
       <Popup
         key={lender.id}
@@ -170,58 +175,81 @@ const ResponsiveContainer = ({ lenders }) => (
   </div>
 );
 
-const Loan = ({ data: { loading, lenders } }) => {
-  if (loading || !lenders) {
+class Loan extends React.Component {
+  state = {
+    openSettings: false
+  };
+
+  toggleSettingsModal = () => {
+    this.setState((state) => ({ openSettings: !state.openSettings }));
+  };
+
+  updateQuery = async (data) => {
+    const variables = {
+      amount: data.values.loanAmount,
+      loanType: data.values.type,
+      term: data.values.term
+    };
+    await this.props.data.refetch(variables);
+  };
+
+  render() {
+    const { openSettings } = this.state;
+    const { data: { loading, lendersFilter: lenders } } = this.props;
+    if (loading || !lenders) {
+      return (
+        <Dimmer active>
+          <Loader>Loading</Loader>
+        </Dimmer>
+      );
+    }
     return (
-      <Dimmer active>
-        <Loader>Loading</Loader>
-      </Dimmer>
+      <div>
+        <ServiceHeader
+          title="Jämför lån"
+          subTitle="Vilken typ av lån letar du efter?"
+        />
+        <Container style={{ paddingBottom: '20px' }}>
+          <Form>
+            <Menu size="large" style={{ marginTop: '20px' }}>
+              <Menu.Menu position="right">
+                <Menu.Item onClick={this.toggleSettingsModal}>
+                  Filtrera
+                </Menu.Item>
+              </Menu.Menu>
+            </Menu>
+          </Form>
+          <ResponsiveContainer lenders={lenders} />
+          <div
+            style={{
+              paddingTop: '20px',
+              textAlign: 'center'
+            }}
+          >
+            <Button color="orange">
+              Vissa fler <Icon name="caret down" />
+            </Button>
+          </div>
+          <Info />
+        </Container>
+        <FilterModal
+          onClose={this.toggleSettingsModal}
+          open={openSettings}
+          data={this.updateQuery}
+        />
+      </div>
     );
   }
-
-  return (
-    <div>
-      <ServiceHeader
-        title="Jämför lån"
-        subTitle="Vilken typ av lån letar du efter?"
-      />
-      <Container style={{ paddingBottom: '20px' }}>
-        <Form>
-          <Menu size="large" style={{ marginTop: '20px' }}>
-            <Menu.Item>
-              <Form.Field
-                control={Checkbox}
-                label={{ children: 'Vissa lån baserat på min profil' }}
-                onClick={() => console.log('Clicked')}
-              />
-            </Menu.Item>
-            <Menu.Menu position="right">
-              <Menu.Item name="help" onClick={() => console.log('Filter')}>
-                Filtrera
-              </Menu.Item>
-            </Menu.Menu>
-          </Menu>
-        </Form>
-        <ResponsiveContainer lenders={lenders} />
-        <div
-          style={{
-            paddingTop: '20px',
-            textAlign: 'center'
-          }}
-        >
-          <Button color="orange">
-            Vissa fler <Icon name="caret down" />
-          </Button>
-        </div>
-        <Info />
-      </Container>
-    </div>
-  );
-};
+}
 
 const lendersQuery = gql`
-  query($offset: Int) {
-    lenders(offset: $offset) {
+  query($amount: Int, $term: Int, $loanType: String, $offset: Int) {
+    lendersFilter(
+      amount: $amount
+      term: $term
+      loanType: $loanType
+      offset: $offset
+    ) {
       id
       name
       url
@@ -246,6 +274,9 @@ export default graphql(lendersQuery, {
   options: () => ({
     fetchPolicy: 'network-only',
     variables: {
+      amount: 2000,
+      term: 12,
+      loanType: '',
       offset: 0
     }
   })
