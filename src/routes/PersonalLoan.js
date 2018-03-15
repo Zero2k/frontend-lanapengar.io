@@ -204,33 +204,34 @@ const Loan = () => (
     <PageHeader
       title="Jämför privatlån"
       subTitle="These unsecured loans can be used to borrow up to £50,000 to repay over a number of years. You could get a better rate and cheaper borrowing if you compare personal loans before you apply."
-    />
-    <Container style={{ paddingBottom: '20px' }}>
-      <Form>
-        <Menu size="large" style={{ marginTop: '20px' }}>
-          <Menu.Item>
-            <Form.Field
-              control={Checkbox}
-              label={{ children: 'Vissa lån baserat på min profil' }}
-              onClick={() => console.log('Clicked')}
-            />
-          </Menu.Item>
-        </Menu>
-      </Form>
-      <ResponsiveContainer />
-      <ResponsiveContainer />
-      <div
-        style={{
-          paddingTop: '20px',
-          textAlign: 'center'
-        }}
-      >
-        <Button color="orange">
-          Vissa fler <Icon name="caret down" />
-        </Button>
-      </div>
-      <Info />
-    </Container>
+    >
+      <Container style={{ paddingBottom: '20px' }}>
+        <Form>
+          <Menu size="large" style={{ marginTop: '20px' }}>
+            <Menu.Item>
+              <Form.Field
+                control={Checkbox}
+                label={{ children: 'Vissa lån baserat på min profil' }}
+                onClick={() => console.log('Clicked')}
+              />
+            </Menu.Item>
+          </Menu>
+        </Form>
+        <ResponsiveContainer />
+        <ResponsiveContainer />
+        <div
+          style={{
+            paddingTop: '20px',
+            textAlign: 'center'
+          }}
+        >
+          <Button color="orange">
+            Vissa fler <Icon name="caret down" />
+          </Button>
+        </div>
+        <Info />
+      </Container>
+    </PageHeader>
   </div>
 );
 

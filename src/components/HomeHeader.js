@@ -12,7 +12,6 @@ import {
   Sidebar,
   Visibility
 } from 'semantic-ui-react';
-import { connect } from 'react-redux';
 
 import bg from '../images/Background_alt5.jpg';
 
@@ -65,7 +64,7 @@ class DesktopContainer extends Component {
   showFixedMenu = () => this.setState({ fixed: true });
 
   render() {
-    const { children, profile } = this.props;
+    const { children } = this.props;
     const { fixed } = this.state;
 
     return (
@@ -96,7 +95,7 @@ class DesktopContainer extends Component {
               }}
               size="huge"
             >
-              <Navbar fixed={fixed} profile={profile} />
+              <Navbar fixed={fixed} />
             </Menu>
             <HomepageHeading />
           </Segment>
@@ -119,7 +118,7 @@ class TabletContainer extends Component {
   showFixedMenu = () => this.setState({ fixed: true });
 
   render() {
-    const { children, profile } = this.props;
+    const { children } = this.props;
     const { fixed } = this.state;
 
     return (
@@ -150,7 +149,7 @@ class TabletContainer extends Component {
               }}
               size="huge"
             >
-              <Navbar fixed={fixed} profile={profile} />
+              <Navbar fixed={fixed} />
             </Menu>
             <HomepageHeading />
           </Segment>
@@ -173,7 +172,7 @@ class MobileContainer extends Component {
     this.setState({ sidebarOpened: !this.state.sidebarOpened });
 
   render() {
-    const { children, profile } = this.props;
+    const { children } = this.props;
     const { sidebarOpened } = this.state;
 
     return (
@@ -192,7 +191,7 @@ class MobileContainer extends Component {
           <Sidebar.Pusher
             dimmed={sidebarOpened}
             onClick={sidebarOpened ? this.handleToggle : null}
-            style={{ minHeight: '100%' }}
+            style={{ minHeight: '100vh' }}
           >
             <Segment
               inverted
@@ -205,10 +204,7 @@ class MobileContainer extends Component {
               }}
               vertical
             >
-              <MobileNavbar
-                handleToggle={this.handleToggle}
-                profile={profile}
-              />
+              <MobileNavbar handleToggle={this.handleToggle} />
               <HomepageHeading mobile />
             </Segment>
 
@@ -224,17 +220,15 @@ MobileContainer.propTypes = {
   children: PropTypes.node
 };
 
-const ResponsiveContainer = ({
-  children, title, subTitle, profile
-}) => (
+const ResponsiveContainer = ({ children, title, subTitle }) => (
   <div>
-    <DesktopContainer title={title} subTitle={subTitle} profile={profile}>
+    <DesktopContainer title={title} subTitle={subTitle}>
       {children}
     </DesktopContainer>
-    <TabletContainer title={title} subTitle={subTitle} profile={profile}>
+    <TabletContainer title={title} subTitle={subTitle}>
       {children}
     </TabletContainer>
-    <MobileContainer title={title} subTitle={subTitle} profile={profile}>
+    <MobileContainer title={title} subTitle={subTitle}>
       {children}
     </MobileContainer>
   </div>
@@ -244,4 +238,4 @@ ResponsiveContainer.propTypes = {
   children: PropTypes.node
 };
 
-export default connect((state) => ({ profile: state.profile }))(ResponsiveContainer);
+export default ResponsiveContainer;

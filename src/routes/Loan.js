@@ -208,35 +208,36 @@ class Loan extends React.Component {
         <ServiceHeader
           title="Jämför lån"
           subTitle="Vilken typ av lån letar du efter?"
-        />
-        <Container style={{ paddingBottom: '20px' }}>
-          <Form>
-            <Menu size="large" style={{ marginTop: '20px' }}>
-              <Menu.Menu position="right">
-                <Menu.Item onClick={this.toggleSettingsModal}>
-                  Filtrera
-                </Menu.Item>
-              </Menu.Menu>
-            </Menu>
-          </Form>
-          <ResponsiveContainer lenders={lenders} />
-          <div
-            style={{
-              paddingTop: '20px',
-              textAlign: 'center'
-            }}
-          >
-            <Button color="orange">
-              Vissa fler <Icon name="caret down" />
-            </Button>
-          </div>
-          <Info />
-        </Container>
-        <FilterModal
-          onClose={this.toggleSettingsModal}
-          open={openSettings}
-          data={this.updateQuery}
-        />
+        >
+          <Container style={{ paddingBottom: '20px' }}>
+            <Form>
+              <Menu size="large" style={{ marginTop: '20px' }}>
+                <Menu.Menu position="right">
+                  <Menu.Item onClick={this.toggleSettingsModal}>
+                    Filtrera
+                  </Menu.Item>
+                </Menu.Menu>
+              </Menu>
+            </Form>
+            <ResponsiveContainer lenders={lenders} />
+            <div
+              style={{
+                paddingTop: '20px',
+                textAlign: 'center'
+              }}
+            >
+              <Button color="orange">
+                Vissa fler <Icon name="caret down" />
+              </Button>
+            </div>
+            <Info />
+          </Container>
+          <FilterModal
+            onClose={this.toggleSettingsModal}
+            open={openSettings}
+            data={this.updateQuery}
+          />
+        </ServiceHeader>
       </div>
     );
   }

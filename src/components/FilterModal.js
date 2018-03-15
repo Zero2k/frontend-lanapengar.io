@@ -74,7 +74,7 @@ class FilterModal extends React.Component {
             <Form.Group widths="equal">
               <Form.Field
                 control={Select}
-                label="Välj typ av lån du är intresserad av"
+                label="Välj typ av lån du är intresserad av?"
                 options={options}
                 placeholder="Typ av lån"
                 name="type"

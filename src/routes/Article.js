@@ -85,20 +85,21 @@ const Article = () => (
     <PageHeader
       title="Våra artiklar"
       subTitle="Our guides show you the best ways to make your money go further and work harder. They contain all the latest financial information and are set out clearly to help you make smart decisions."
-    />
-    <Container style={{ paddingBottom: '20px' }}>
-      <ResponsiveContainer />
-      <div
-        style={{
-          paddingTop: '20px',
-          textAlign: 'center'
-        }}
-      >
-        <Button color="orange">
-          Se fler artiklar <Icon name="caret down" />
-        </Button>
-      </div>
-    </Container>
+    >
+      <Container style={{ paddingBottom: '20px' }}>
+        <ResponsiveContainer />
+        <div
+          style={{
+            paddingTop: '20px',
+            textAlign: 'center'
+          }}
+        >
+          <Button color="orange">
+            Se fler artiklar <Icon name="caret down" />
+          </Button>
+        </div>
+      </Container>
+    </PageHeader>
   </div>
 );
 
