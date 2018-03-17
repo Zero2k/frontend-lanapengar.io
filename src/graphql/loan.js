@@ -13,7 +13,12 @@ export const editLoanMutation = gql`
       amount: $amount
       loan_type: $loan_type
       lenderId: $lenderId
-    )
+    ) {
+      __typename
+      id
+      amount
+      loan_type
+    }
   }
 `;
 

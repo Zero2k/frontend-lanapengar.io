@@ -55,6 +55,12 @@ class EditLender extends React.Component {
         await this.props.editLoanMutation({
           variables: {
             ...values
+          },
+          update: (store, { data: { updateLoan } }) => {
+            const data = store.readQuery({ query: updateLoan });
+            data.updateLoan = data.updateLoan.map((x) =>
+              (x.id === updateLoan.id ? { __typename: 'Loan', updateLoan } : x));
+            store.writeQuery({ query: updateLoan, data });
           }
         });
       } catch (err) {
