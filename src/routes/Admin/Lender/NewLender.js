@@ -8,8 +8,6 @@ import AdminNavbar from '../../../components/Navbar/AdminNavbar';
 
 class NewLender extends React.Component {
   submit = async (values) => {
-    console.log(values);
-
     try {
       await this.props.newLenderMutation({
         variables: {
@@ -99,12 +97,6 @@ const newLenderMutation = gql`
     )
   }
 `;
-
-/* const newLenderMutation = gql`
-  mutation($name: String!) {
-    createLender(name: $name)
-  }
-`; */
 
 export default graphql(newLenderMutation, {
   name: 'newLenderMutation',

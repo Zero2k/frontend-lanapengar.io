@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-export const singleLenderQuery = gql`
+export const SINGLE_LENDER_QUERY = gql`
   query($id: Int!) {
     lenderById(id: $id) {
       __typename
@@ -57,7 +57,7 @@ export const lendersQuery = gql`
   }
 `;
 
-export const editLenderMutation = gql`
+export const EDIT_LENDER_MUTATION = gql`
   mutation(
     $id: Int!
     $name: String

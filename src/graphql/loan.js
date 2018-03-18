@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-export const addLoanMutation = gql`
+export const ADD_LOAN_MUTATION = gql`
   mutation($amount: Int!, $lenderId: Int!) {
     addLoan(amount: $amount, lenderId: $lenderId) {
       __typename
@@ -11,7 +11,7 @@ export const addLoanMutation = gql`
   }
 `;
 
-export const editLoanMutation = gql`
+export const EDIT_LOAN_MUTATION = gql`
   mutation($id: Int!, $amount: Int!, $loan_type: String, $lenderId: Int!) {
     updateLoan(
       id: $id
@@ -27,7 +27,7 @@ export const editLoanMutation = gql`
   }
 `;
 
-export const deleteLoanMutation = gql`
+export const DELETE_LOAN_MUTATION = gql`
   mutation($id: Int!) {
     deleteLoan(id: $id)
   }

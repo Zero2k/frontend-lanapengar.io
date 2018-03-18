@@ -1,11 +1,14 @@
 import React from 'react';
 import { Container, Tab, Dimmer, Loader } from 'semantic-ui-react';
 import { graphql, compose } from 'react-apollo';
-import { singleLenderQuery, editLenderMutation } from '../../../graphql/lender';
 import {
-  addLoanMutation,
-  editLoanMutation,
-  deleteLoanMutation
+  SINGLE_LENDER_QUERY,
+  EDIT_LENDER_MUTATION
+} from '../../../graphql/lender';
+import {
+  ADD_LOAN_MUTATION,
+  EDIT_LOAN_MUTATION,
+  DELETE_LOAN_MUTATION
 } from '../../../graphql/loan';
 
 import FormLender from '../../../components/Form/FormLender';
@@ -40,22 +43,22 @@ class EditLender extends React.Component {
         await this.props.addLoanMutation({
           variables: {
             ...values
-          }
-          /* update: (store, { data: { addLoan } }) => {
+          },
+          update: (store, { data: { addLoan } }) => {
             // Read the data from our cache for this query.
-            const data = store.readQuery({ query: singleLenderQuery });
+            const data = store.readQuery({
+              query: SINGLE_LENDER_QUERY,
+              variables: { id: this.props.match.params.id }
+            });
             // Add our comment from the mutation to the end.
-            data.lenderById.loans = [
-              { __typename: 'Lender', id: addLoan.id, addLoan }
-            ];
+            data.lenderById.loans.push(addLoan);
             // Write our data back to the cache.
-            store.writeQuery({ query: singleLenderQuery, data });
-          } */
-          /* update: (store, { data: { lenderById } }) => {
-            const data = store.readQuery({ query: lenderById });
-            data.loans = data.loans.map((x) => (x.id === lenderById.data.loans.id ? lenderById : x));
-            store.writeQuery({ query: lenderById, data });
-          } */
+            store.writeQuery({
+              query: SINGLE_LENDER_QUERY,
+              data,
+              variables: { ...values }
+            });
+          }
         });
       } catch (err) {
         console.log(err);
@@ -143,11 +146,11 @@ class EditLender extends React.Component {
 }
 
 export default compose(
-  graphql(editLenderMutation, {
+  graphql(EDIT_LENDER_MUTATION, {
     name: 'editLenderMutation',
     options: { fetchPolicy: 'no-cache' }
   }),
-  graphql(singleLenderQuery, {
+  graphql(SINGLE_LENDER_QUERY, {
     name: 'singleLenderQuery',
     options: (props) => ({
       fetchPolicy: 'network-only',
@@ -156,7 +159,7 @@ export default compose(
       }
     })
   }),
-  graphql(addLoanMutation, {
+  graphql(ADD_LOAN_MUTATION, {
     name: 'addLoanMutation',
     options: (props) => ({
       variables: {
@@ -165,7 +168,7 @@ export default compose(
       }
     })
   }),
-  graphql(editLoanMutation, {
+  graphql(EDIT_LOAN_MUTATION, {
     name: 'editLoanMutation',
     options: (props) => ({
       variables: {
@@ -174,7 +177,7 @@ export default compose(
       }
     })
   }),
-  graphql(deleteLoanMutation, {
+  graphql(DELETE_LOAN_MUTATION, {
     name: 'deleteLoanMutation',
     options: {
       fetchPolicy: 'no-cache'

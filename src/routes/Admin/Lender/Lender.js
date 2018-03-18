@@ -137,7 +137,7 @@ const lendersQuery = gql`
 `;
 
 export default graphql(lendersQuery, {
-  options: (props) => ({
+  options: () => ({
     fetchPolicy: 'network-only',
     variables: {
       offset: 0
