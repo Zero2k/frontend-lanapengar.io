@@ -41,10 +41,20 @@ class EditLender extends React.Component {
           variables: {
             ...values
           }
-          /* update: (store, { data: { updateProduct } }) => {
+          /* update: (store, { data: { addLoan } }) => {
+            // Read the data from our cache for this query.
             const data = store.readQuery({ query: singleLenderQuery });
-            data.products = data.products.map(x => (x.id === updateProduct.id ? updateProduct : x));
+            // Add our comment from the mutation to the end.
+            data.lenderById.loans = [
+              { __typename: 'Lender', id: addLoan.id, addLoan }
+            ];
+            // Write our data back to the cache.
             store.writeQuery({ query: singleLenderQuery, data });
+          } */
+          /* update: (store, { data: { lenderById } }) => {
+            const data = store.readQuery({ query: lenderById });
+            data.loans = data.loans.map((x) => (x.id === lenderById.data.loans.id ? lenderById : x));
+            store.writeQuery({ query: lenderById, data });
           } */
         });
       } catch (err) {
@@ -55,13 +65,13 @@ class EditLender extends React.Component {
         await this.props.editLoanMutation({
           variables: {
             ...values
-          },
-          update: (store, { data: { updateLoan } }) => {
+          }
+          /* update: (store, { data: { updateLoan } }) => {
             const data = store.readQuery({ query: updateLoan });
             data.updateLoan = data.updateLoan.map((x) =>
               (x.id === updateLoan.id ? { __typename: 'Loan', updateLoan } : x));
             store.writeQuery({ query: updateLoan, data });
-          }
+          } */
         });
       } catch (err) {
         console.log(err);
@@ -94,14 +104,13 @@ class EditLender extends React.Component {
       );
     }
 
-    const { data } = lenderById;
-    const { loans } = data;
+    const { loans } = lenderById;
 
     return (
       <div>
         <AdminNavbar />
         <Container style={{ paddingTop: '20px' }}>
-          <h3>Edit - {data.name}</h3>
+          <h3>Edit - {lenderById.name}</h3>
           <Tab
             menu={{ pointing: true }}
             panes={[
@@ -109,7 +118,7 @@ class EditLender extends React.Component {
                 menuItem: 'Edit',
                 render: () => (
                   <Tab.Pane attached={false}>
-                    <FormLender data={data} submit={this.submitEdit} />
+                    <FormLender data={lenderById} submit={this.submitEdit} />
                   </Tab.Pane>
                 )
               },

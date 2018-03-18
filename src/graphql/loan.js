@@ -2,7 +2,12 @@ import gql from 'graphql-tag';
 
 export const addLoanMutation = gql`
   mutation($amount: Int!, $lenderId: Int!) {
-    addLoan(amount: $amount, lenderId: $lenderId)
+    addLoan(amount: $amount, lenderId: $lenderId) {
+      __typename
+      id
+      amount
+      loan_type
+    }
   }
 `;
 
