@@ -21,12 +21,14 @@ import Lender from './Admin/Lender/Lender';
 import Auth from './Auth';
 import EditLender from './Admin/Lender/EditLender';
 import NewLender from './Admin/Lender/NewLender';
+import Section from './Admin/Section/Section';
+import NewSection from './Admin/Section/NewSection';
 // import Logout from './Logout';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
-    render={props =>
+    render={(props) =>
       (isAuthenticated() ? (
         <Component {...props} />
       ) : (
@@ -51,6 +53,12 @@ export default () => (
         component={EditLender}
       />
       <PrivateRoute path="/dashboard/lender/new" exact component={NewLender} />
+      <PrivateRoute path="/dashboard/section" exact component={Section} />
+      <PrivateRoute
+        path="/dashboard/section/new"
+        exact
+        component={NewSection}
+      />
       <Route path="/auth" exact component={Auth} />
       <Route path="/login" exact component={Login} />
       <Layout>
