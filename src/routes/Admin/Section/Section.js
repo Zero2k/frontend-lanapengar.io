@@ -35,11 +35,10 @@ class Section extends React.Component {
           <Table celled compact definition>
             <Table.Header fullWidth>
               <Table.Row>
+                <Table.HeaderCell>ID</Table.HeaderCell>
                 <Table.HeaderCell>Title</Table.HeaderCell>
                 <Table.HeaderCell>Page</Table.HeaderCell>
-                <Table.HeaderCell>Min amount</Table.HeaderCell>
-                <Table.HeaderCell>Max amount</Table.HeaderCell>
-                <Table.HeaderCell>Url</Table.HeaderCell>
+                <Table.HeaderCell>Content</Table.HeaderCell>
                 <Table.HeaderCell>Actions</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
@@ -47,11 +46,10 @@ class Section extends React.Component {
             <Table.Body>
               {sections.map((section) => (
                 <Table.Row key={section.id}>
+                  <Table.Cell width={1}>{section.id}</Table.Cell>
                   <Table.Cell width={2}>{section.title}</Table.Cell>
-                  <Table.Cell width={3}>{section.page}</Table.Cell>
-                  <Table.Cell width={2}>NULL</Table.Cell>
-                  <Table.Cell width={2}>NULL</Table.Cell>
-                  <Table.Cell>NULL</Table.Cell>
+                  <Table.Cell width={2}>{section.page}</Table.Cell>
+                  <Table.Cell>{section.content}</Table.Cell>
                   <Table.Cell width={1}>
                     <Button.Group basic size="small">
                       <Button
@@ -68,7 +66,7 @@ class Section extends React.Component {
 
             <Table.Footer fullWidth>
               <Table.Row>
-                <Table.HeaderCell colSpan="3">
+                <Table.HeaderCell colSpan="2">
                   {this.state.hasMoreItems && (
                     <Button
                       onClick={() => {
@@ -101,7 +99,7 @@ class Section extends React.Component {
                     </Button>
                   )}
                 </Table.HeaderCell>
-                <Table.HeaderCell colSpan="4">
+                <Table.HeaderCell colSpan="6">
                   <Button
                     floated="right"
                     icon
@@ -129,6 +127,7 @@ const sectionsQuery = gql`
       id
       title
       page
+      content
     }
   }
 `;

@@ -11,7 +11,9 @@ class NewSection extends React.Component {
     try {
       await this.props.newSectionMutation({
         variables: {
-          content: values
+          title: values.title,
+          page: values.page,
+          content: values.content
         }
         /* update: (store, { data: { updateProduct } }) => {
           const data = store.readQuery({ query: singleLenderQuery });
@@ -53,8 +55,8 @@ class NewSection extends React.Component {
 }
 
 const newSectionMutation = gql`
-  mutation($content: JSON) {
-    createSection(content: $content)
+  mutation($title: String, $page: String, $content: JSON) {
+    createSection(title: $title, page: $page, content: $content)
   }
 `;
 
