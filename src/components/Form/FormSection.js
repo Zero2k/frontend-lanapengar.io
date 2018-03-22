@@ -1,37 +1,44 @@
 import React from 'react';
-import {
-  EditorState,
-  convertToRaw,
-  ContentState,
-  convertFromRaw
-} from 'draft-js';
+import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
-import draftToHtml from 'draftjs-to-html';
-import htmlToDraft from 'html-to-draftjs';
 import { Form, Input, Button } from 'semantic-ui-react';
 import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 class FormSection extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    const { data = {} } = props;
+    this.state = {
+      title: '',
+      page: '',
+      content: EditorState.createEmpty(),
+      ...data
+    };
+
+    if (!this.props.data || !this.props.data.content) {
+      this.state.content = EditorState.createEmpty();
+    } else {
+      const { content } = this.props.data;
+      this.state.content = EditorState.createWithContent(convertFromRaw(JSON.parse(content)));
+    }
   }
+
+  onEditorStateChange = (content) => {
+    this.setState({
+      content
+    });
+  };
 
   onChangeText = (e, { name, value }) =>
     this.setState({ ...this.state, [name]: value });
 
-  onEditorStateChange = (editorState) => {
-    this.setState({
-      editorState
-    });
-  };
-
   submit = async () => {
-    if (this.state.editorState) {
-      const contentState = this.state.editorState.getCurrentContent();
+    if (this.state.content) {
+      const contentState = this.state.content.getCurrentContent();
       const contentJSON = JSON.stringify(convertToRaw(contentState));
 
       const values = {
+        id: this.state.id,
         title: this.state.title,
         page: this.state.page,
         content: contentJSON
@@ -43,7 +50,7 @@ class FormSection extends React.Component {
   };
 
   render() {
-    const { title, page, editorState } = this.state;
+    const { title, page, content } = this.state;
     return (
       <div>
         <Form>
@@ -68,7 +75,7 @@ class FormSection extends React.Component {
             />
           </Form.Group>
           <Editor
-            editorState={editorState}
+            editorState={content}
             wrapperClassName="demo-wrapper"
             editorClassName="demo-editor"
             onEditorStateChange={this.onEditorStateChange}

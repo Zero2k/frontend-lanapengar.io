@@ -23,6 +23,7 @@ import EditLender from './Admin/Lender/EditLender';
 import NewLender from './Admin/Lender/NewLender';
 import Section from './Admin/Section/Section';
 import NewSection from './Admin/Section/NewSection';
+import EditSection from './Admin/Section/EditSection';
 // import Logout from './Logout';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
@@ -58,6 +59,11 @@ export default () => (
         path="/dashboard/section/new"
         exact
         component={NewSection}
+      />
+      <PrivateRoute
+        path="/dashboard/section/edit/:id"
+        exact
+        component={EditSection}
       />
       <Route path="/auth" exact component={Auth} />
       <Route path="/login" exact component={Login} />
