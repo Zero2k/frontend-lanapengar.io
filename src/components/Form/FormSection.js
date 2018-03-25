@@ -1,6 +1,7 @@
 import React from 'react';
 import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
+import { stateToHTML } from 'draft-js-export-html';
 import { Form, Input, Button } from 'semantic-ui-react';
 import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
@@ -10,7 +11,7 @@ class FormSection extends React.Component {
     const { data = {} } = props;
     this.state = {
       title: '',
-      page: '',
+      category: '',
       content: EditorState.createEmpty(),
       ...data
     };
@@ -36,21 +37,24 @@ class FormSection extends React.Component {
     if (this.state.content) {
       const contentState = this.state.content.getCurrentContent();
       const contentJSON = JSON.stringify(convertToRaw(contentState));
+      const html = stateToHTML(contentState);
 
       const values = {
         id: this.state.id,
         title: this.state.title,
-        page: this.state.page,
-        content: contentJSON
+        category: this.state.category,
+        content: contentJSON,
+        html
       };
       this.props.submit(values);
+      console.log(values);
     } else {
       console.log("Editor can't be empty");
     }
   };
 
   render() {
-    const { title, page, content } = this.state;
+    const { title, category, content } = this.state;
     return (
       <div>
         <Form>
@@ -61,17 +65,17 @@ class FormSection extends React.Component {
               defaultValue={title}
               onChange={this.onChangeText}
               name="title"
-              label="Section title"
+              label="Title"
               placeholder="Title"
             />
             <Form.Field
               id="form-input-control-first-name"
               control={Input}
-              defaultValue={page}
+              defaultValue={category}
               onChange={this.onChangeText}
-              name="page"
-              label="Section page"
-              placeholder="Page"
+              name="category"
+              label="Category"
+              placeholder="Category"
             />
           </Form.Group>
           <Editor

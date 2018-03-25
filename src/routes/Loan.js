@@ -13,13 +13,14 @@ import {
   Loader
 } from 'semantic-ui-react';
 import gql from 'graphql-tag';
-import graphql from 'react-apollo/graphql';
+import { graphql, compose } from 'react-apollo';
 
 import FilterModal from '../components/FilterModal';
 import ServiceHeader from '../components/ServiceHeader';
 
 import Info from '../components/InfoSection';
 import LoanInfo from '../components/LoanInfo';
+import { SINGLE_SECTION_QUERY } from '../graphql/section';
 
 const ListDivided = ({ lender }) => (
   <div>
@@ -190,12 +191,15 @@ class Loan extends React.Component {
       loanType: data.values.type,
       term: data.values.term
     };
-    await this.props.data.refetch(variables);
+    await this.props.lendersQuery.refetch(variables);
   };
 
   render() {
     const { openSettings } = this.state;
-    const { data: { loading, lendersFilter: lenders } } = this.props;
+    const {
+      lendersQuery: { loading, lendersFilter: lenders },
+      singleSectionQuery: { sectionById }
+    } = this.props;
     if (loading || !lenders) {
       return (
         <Dimmer active>
@@ -230,7 +234,7 @@ class Loan extends React.Component {
                 Vissa fler <Icon name="caret down" />
               </Button>
             </div>
-            <Info />
+            <Info content={sectionById} />
           </Container>
           <FilterModal
             onClose={this.toggleSettingsModal}
@@ -271,14 +275,26 @@ const lendersQuery = gql`
   }
 `;
 
-export default graphql(lendersQuery, {
-  options: () => ({
-    fetchPolicy: 'network-only',
-    variables: {
-      amount: 2000,
-      term: 12,
-      loanType: '',
-      offset: 0
-    }
+export default compose(
+  graphql(SINGLE_SECTION_QUERY, {
+    name: 'singleSectionQuery',
+    options: () => ({
+      fetchPolicy: 'network-only',
+      variables: {
+        id: 1
+      }
+    })
+  }),
+  graphql(lendersQuery, {
+    name: 'lendersQuery',
+    options: () => ({
+      fetchPolicy: 'network-only',
+      variables: {
+        amount: 2000,
+        term: 12,
+        loanType: '',
+        offset: 0
+      }
+    })
   })
-})(Loan);
+)(Loan);

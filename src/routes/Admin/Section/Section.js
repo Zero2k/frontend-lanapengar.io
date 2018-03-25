@@ -37,8 +37,7 @@ class Section extends React.Component {
               <Table.Row>
                 <Table.HeaderCell>ID</Table.HeaderCell>
                 <Table.HeaderCell>Title</Table.HeaderCell>
-                <Table.HeaderCell>Page</Table.HeaderCell>
-                <Table.HeaderCell>Content</Table.HeaderCell>
+                <Table.HeaderCell>category</Table.HeaderCell>
                 <Table.HeaderCell>Actions</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
@@ -47,9 +46,8 @@ class Section extends React.Component {
               {sections.map((section) => (
                 <Table.Row key={section.id}>
                   <Table.Cell width={1}>{section.id}</Table.Cell>
-                  <Table.Cell width={2}>{section.title}</Table.Cell>
-                  <Table.Cell width={2}>{section.page}</Table.Cell>
-                  <Table.Cell>{section.content}</Table.Cell>
+                  <Table.Cell width={4}>{section.title}</Table.Cell>
+                  <Table.Cell width={6}>{section.category}</Table.Cell>
                   <Table.Cell width={1}>
                     <Button.Group basic size="small">
                       <Button
@@ -126,7 +124,7 @@ const sectionsQuery = gql`
     sections {
       id
       title
-      page
+      category
       content
     }
   }

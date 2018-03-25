@@ -5,14 +5,27 @@ export const SINGLE_SECTION_QUERY = gql`
     sectionById(id: $id) {
       id
       title
-      page
+      category
       content
+      html
     }
   }
 `;
 
 export const EDIT_SECTION_MUTATION = gql`
-  mutation($id: Int!, $title: String, $page: String, $content: JSON) {
-    updateSection(id: $id, title: $title, page: $page, content: $content)
+  mutation(
+    $id: Int!
+    $title: String
+    $category: String
+    $content: JSON
+    $html: String
+  ) {
+    updateSection(
+      id: $id
+      title: $title
+      category: $category
+      content: $content
+      html: $html
+    )
   }
 `;

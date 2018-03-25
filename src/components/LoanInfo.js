@@ -116,6 +116,7 @@ const LoanInfo = ({
     <p
       style={{
         paddingTop: '10px',
+        borderTop: '1px solid rgba(171, 171, 171, 0.36)',
         textAlign: 'center',
         fontWeight: '700'
       }}

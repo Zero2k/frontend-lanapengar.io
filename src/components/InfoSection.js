@@ -1,22 +1,20 @@
 import React from 'react';
 import { List, Header, Container, Grid } from 'semantic-ui-react';
 
-const Info = () => (
+const Info = ({ content }) => (
   <Container style={{ paddingTop: '20px', paddingBottom: '20px' }}>
-    <Grid>
+    <Grid stackable>
       <Grid.Column width={12}>
-        <Header as="h2">Så får du bäst ränta på privatlånet</Header>
-        <p style={{ fontSize: '16px' }}>
-          Nunc ac ligula fringilla, tristique ipsum id, facilisis turpis.
-          Phasellus id arcu quis nunc posuere porta. Donec in quam suscipit,
-          malesuada orci eu, laoreet lorem. Duis nulla neque, feugiat a erat
-          vel, mollis maximus sem. Cras vitae condimentum eros. Maecenas quis
-          massa mollis, vulputate massa convallis, aliquet lorem. Donec dolor
-          risus, efficitur vel blandit ut, semper non velit. Nulla molestie id
-          odio eu semper. Suspendisse felis lorem, dignissim id ullamcorper in,
-          egestas vitae nulla. Proin nec massa a justo ullamcorper sollicitudin
-          nec pharetra ante.
-        </p>
+        {!content ? (
+          <div>No Content</div>
+        ) : (
+          <div>
+            <Header color="teal" as="h2">
+              {content.title}
+            </Header>
+            <div dangerouslySetInnerHTML={{ __html: content.html }} />
+          </div>
+        )}
       </Grid.Column>
       <Grid.Column width={4}>
         <Header as="h3" dividing>

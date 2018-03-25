@@ -22,6 +22,7 @@ class EditSection extends React.Component {
           store.writeQuery({ query: singleLenderQuery, data });
         } */
       });
+      console.log(values);
     } catch (err) {
       console.log(err);
       return;
@@ -45,7 +46,7 @@ class EditSection extends React.Component {
       <div>
         <AdminNavbar />
         <Container style={{ paddingTop: '20px' }}>
-          <h3>Edit - {sectionById.name}</h3>
+          <h3>Edit - {sectionById.title}</h3>
           <Tab
             menu={{ pointing: true }}
             panes={[
