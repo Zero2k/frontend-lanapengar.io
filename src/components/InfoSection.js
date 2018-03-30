@@ -1,5 +1,10 @@
 import React from 'react';
+import styled from 'styled-components';
 import { List, Header, Container, Grid } from 'semantic-ui-react';
+
+const Text = styled.div`
+  font-size: 16px;
+`;
 
 const Info = ({ content }) => (
   <Container style={{ paddingTop: '20px', paddingBottom: '20px' }}>
@@ -12,7 +17,7 @@ const Info = ({ content }) => (
             <Header color="teal" as="h2">
               {content.title}
             </Header>
-            <div dangerouslySetInnerHTML={{ __html: content.html }} />
+            <Text dangerouslySetInnerHTML={{ __html: content.html }} />
           </div>
         )}
       </Grid.Column>
