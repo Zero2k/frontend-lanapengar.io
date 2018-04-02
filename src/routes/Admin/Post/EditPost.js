@@ -1,18 +1,15 @@
 import React from 'react';
 import { Container, Tab, Dimmer, Loader } from 'semantic-ui-react';
 import { graphql, compose } from 'react-apollo';
-import {
-  SINGLE_SECTION_QUERY,
-  EDIT_SECTION_MUTATION
-} from '../../../graphql/section';
+import { SINGLE_POST_QUERY, EDIT_POST_MUTATION } from '../../../graphql/post';
 
-import FormSection from '../../../components/Form/FormPostSection';
+import FormPost from '../../../components/Form/FormPostSection';
 import AdminNavbar from '../../../components/Navbar/AdminNavbar';
 
-class EditSection extends React.Component {
+class EditPost extends React.Component {
   submitEdit = async (values) => {
     try {
-      await this.props.editSectionMutation({
+      await this.props.editPostMutation({
         variables: {
           ...values
         }
@@ -28,13 +25,13 @@ class EditSection extends React.Component {
       return;
     }
 
-    this.props.history.push('/dashboard/section');
+    this.props.history.push('/dashboard/post');
   };
 
   render() {
-    const { singleSectionQuery: { loading, sectionById } } = this.props;
+    const { singlePostQuery: { loading, postById } } = this.props;
 
-    if (loading || !sectionById) {
+    if (loading || !postById) {
       return (
         <Dimmer active>
           <Loader>Loading</Loader>
@@ -46,7 +43,7 @@ class EditSection extends React.Component {
       <div>
         <AdminNavbar />
         <Container style={{ paddingTop: '20px' }}>
-          <h3>Edit - {sectionById.title}</h3>
+          <h3>Edit - {postById.title}</h3>
           <Tab
             menu={{ pointing: true }}
             panes={[
@@ -54,7 +51,11 @@ class EditSection extends React.Component {
                 menuItem: 'Edit',
                 render: () => (
                   <Tab.Pane attached={false}>
-                    <FormSection data={sectionById} submit={this.submitEdit} />
+                    <FormPost
+                      data={postById}
+                      submit={this.submitEdit}
+                      existDescription
+                    />
                   </Tab.Pane>
                 )
               }
@@ -67,12 +68,12 @@ class EditSection extends React.Component {
 }
 
 export default compose(
-  graphql(EDIT_SECTION_MUTATION, {
-    name: 'editSectionMutation',
+  graphql(EDIT_POST_MUTATION, {
+    name: 'editPostMutation',
     options: { fetchPolicy: 'no-cache' }
   }),
-  graphql(SINGLE_SECTION_QUERY, {
-    name: 'singleSectionQuery',
+  graphql(SINGLE_POST_QUERY, {
+    name: 'singlePostQuery',
     options: (props) => ({
       fetchPolicy: 'network-only',
       variables: {
@@ -80,4 +81,4 @@ export default compose(
       }
     })
   })
-)(EditSection);
+)(EditPost);

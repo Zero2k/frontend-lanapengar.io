@@ -8,7 +8,7 @@ const AdminNavbar = () => (
       <Container>
         <NavLink to="/dashboard">Start</NavLink>
         <NavLink to="/dashboard/lender">Lenders</NavLink>
-        <NavLink to="/posts">Posts</NavLink>
+        <NavLink to="/dashboard/post">Posts</NavLink>
         <NavLink to="/dashboard/section">Sections</NavLink>
         <Menu.Menu position="right">
           <Menu.Item>

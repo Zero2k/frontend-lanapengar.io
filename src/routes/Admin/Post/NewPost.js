@@ -3,16 +3,17 @@ import { Container, Tab } from 'semantic-ui-react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
-import FormSection from '../../../components/Form/FormPostSection';
+import FormPost from '../../../components/Form/FormPostSection';
 import AdminNavbar from '../../../components/Navbar/AdminNavbar';
 
-class NewSection extends React.Component {
+class NewPost extends React.Component {
   submit = async (values) => {
     try {
-      await this.props.newSectionMutation({
+      await this.props.newPostMutation({
         variables: {
           title: values.title,
           category: values.category,
+          description: values.description,
           content: values.content,
           html: values.html
         }
@@ -27,7 +28,7 @@ class NewSection extends React.Component {
       return;
     }
 
-    this.props.history.push('/dashboard/section');
+    this.props.history.push('/dashboard/post');
   };
 
   render() {
@@ -35,7 +36,7 @@ class NewSection extends React.Component {
       <div>
         <AdminNavbar />
         <Container style={{ paddingTop: '20px' }}>
-          <h3>New Section</h3>
+          <h3>New Post</h3>
           <Tab
             menu={{ pointing: true }}
             panes={[
@@ -43,7 +44,7 @@ class NewSection extends React.Component {
                 menuItem: 'New',
                 render: () => (
                   <Tab.Pane attached={false}>
-                    <FormSection submit={this.submit} />
+                    <FormPost submit={this.submit} existDescription />
                   </Tab.Pane>
                 )
               }
@@ -55,18 +56,25 @@ class NewSection extends React.Component {
   }
 }
 
-const newSectionMutation = gql`
-  mutation($title: String, $category: String, $content: JSON, $html: String) {
-    createSection(
+const newPostMutation = gql`
+  mutation(
+    $title: String
+    $category: String
+    $description: String
+    $content: JSON
+    $html: String
+  ) {
+    createPost(
       title: $title
       category: $category
+      description: $description
       content: $content
       html: $html
     )
   }
 `;
 
-export default graphql(newSectionMutation, {
-  name: 'newSectionMutation',
+export default graphql(newPostMutation, {
+  name: 'newPostMutation',
   options: { fetchPolicy: 'no-cache' }
-})(NewSection);
+})(NewPost);

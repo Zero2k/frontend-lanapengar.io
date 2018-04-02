@@ -10,15 +10,22 @@ import {
   Loader
 } from 'semantic-ui-react';
 import { graphql } from 'react-apollo';
+import { Link } from 'react-router-dom';
 
-import PageHeader from '../components/PageHeader';
+import PageHeader from '../../components/PageHeader';
 
-import { POST_QUERY } from '../graphql/post';
+import { POST_QUERY } from '../../graphql/post';
 
 const CardItem = ({ posts, color, perRow }) => (
   <Card.Group itemsPerRow={perRow}>
     {posts.map((post, index) => (
-      <Card key={post.id} color={color[index]}>
+      <Card
+        key={post.id}
+        color={color[index]}
+        link
+        as={Link}
+        to={`artikel/${post.category}/${post.slug}`}
+      >
         <div
           style={{
             display: 'block',
@@ -47,9 +54,7 @@ const CardItem = ({ posts, color, perRow }) => (
         <Card.Content>
           <Card.Header>{post.title}</Card.Header>
           <Card.Description>
-            MasterCard and Visa do not issue credit, debit or prepaid cards but
-            they do provide an important service when you spend. Here is what
-            these companies do and how you can decide which one to use.
+            <p>{post.description}</p>
           </Card.Description>
         </Card.Content>
       </Card>

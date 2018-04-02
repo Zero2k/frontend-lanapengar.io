@@ -2,8 +2,10 @@ import React from 'react';
 import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import { stateToHTML } from 'draft-js-export-html';
-import { Form, Input, Button } from 'semantic-ui-react';
+import { Form, Input, Button, Dropdown } from 'semantic-ui-react';
 import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+
+import { categories } from '../../utils/categories';
 
 class FormSection extends React.Component {
   constructor(props) {
@@ -12,6 +14,7 @@ class FormSection extends React.Component {
     this.state = {
       title: '',
       category: '',
+      description: '',
       content: EditorState.createEmpty(),
       ...data
     };
@@ -43,6 +46,7 @@ class FormSection extends React.Component {
         id: this.state.id,
         title: this.state.title,
         category: this.state.category,
+        description: this.state.description,
         content: contentJSON,
         html
       };
@@ -54,7 +58,10 @@ class FormSection extends React.Component {
   };
 
   render() {
-    const { title, category, content } = this.state;
+    const {
+      title, category, description, content
+    } = this.state;
+    const { existDescription } = this.props;
     return (
       <div>
         <Form>
@@ -69,15 +76,28 @@ class FormSection extends React.Component {
               placeholder="Title"
             />
             <Form.Field
-              id="form-input-control-first-name"
-              control={Input}
-              defaultValue={category}
+              control={Dropdown}
               onChange={this.onChangeText}
-              name="category"
+              placeholder="Select category"
+              closeOnBlur={false}
               label="Category"
-              placeholder="Category"
+              selection
+              defaultValue={category}
+              options={categories}
+              name="category"
             />
           </Form.Group>
+          {existDescription && (
+            <Form.Field
+              id="form-input-control-first-name"
+              control={Input}
+              defaultValue={description}
+              onChange={this.onChangeText}
+              name="description"
+              label="Description"
+              placeholder="Description"
+            />
+          )}
           <Editor
             editorState={content}
             wrapperClassName="demo-wrapper"
