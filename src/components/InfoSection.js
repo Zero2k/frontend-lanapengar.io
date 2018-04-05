@@ -14,7 +14,15 @@ const Info = ({ content }) => (
           <div>No Content</div>
         ) : (
           <div>
-            <Header color="teal" as="h2">
+            <Header
+              color="teal"
+              as="h2"
+              style={{
+                fontSize: '32px',
+                fontFamily: 'Varela Round',
+                fontWeight: 500
+              }}
+            >
               {content.title}
             </Header>
             <Text dangerouslySetInnerHTML={{ __html: content.html }} />

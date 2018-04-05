@@ -19,6 +19,7 @@ export const SINGLE_POST_QUERY = gql`
       title
       slug
       category
+      keyword
       description
       content
       html
@@ -33,6 +34,7 @@ export const SLUG_POST_QUERY = gql`
       title
       slug
       category
+      keyword
       description
       content
       html
@@ -45,6 +47,7 @@ export const EDIT_POST_MUTATION = gql`
     $id: Int!
     $title: String
     $category: String
+    $keyword: String
     $description: String
     $content: JSON
     $html: String
@@ -53,9 +56,21 @@ export const EDIT_POST_MUTATION = gql`
       id: $id
       title: $title
       category: $category
+      keyword: $keyword
       description: $description
       content: $content
       html: $html
     )
+  }
+`;
+
+export const RELATED_POST_QUERY = gql`
+  query($keyword: [String]) {
+    relatedPosts(keyword: $keyword) {
+      id
+      title
+      category
+      slug
+    }
   }
 `;

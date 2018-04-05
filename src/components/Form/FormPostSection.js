@@ -14,6 +14,7 @@ class FormSection extends React.Component {
     this.state = {
       title: '',
       category: '',
+      keyword: '',
       description: '',
       content: EditorState.createEmpty(),
       ...data
@@ -46,6 +47,7 @@ class FormSection extends React.Component {
         id: this.state.id,
         title: this.state.title,
         category: this.state.category,
+        keyword: this.state.keyword,
         description: this.state.description,
         content: contentJSON,
         html
@@ -59,9 +61,9 @@ class FormSection extends React.Component {
 
   render() {
     const {
-      title, category, description, content
+      title, category, description, keyword, content
     } = this.state;
-    const { existDescription } = this.props;
+    const { existDescription, existKeyword } = this.props;
     return (
       <div>
         <Form>
@@ -96,6 +98,17 @@ class FormSection extends React.Component {
               name="description"
               label="Description"
               placeholder="Description"
+            />
+          )}
+          {existKeyword && (
+            <Form.Field
+              id="form-input-control-first-name"
+              control={Input}
+              defaultValue={keyword}
+              onChange={this.onChangeText}
+              name="keyword"
+              label="Keywords"
+              placeholder="Keywords"
             />
           )}
           <Editor

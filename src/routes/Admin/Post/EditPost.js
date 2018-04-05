@@ -55,6 +55,7 @@ class EditPost extends React.Component {
                       data={postById}
                       submit={this.submitEdit}
                       existDescription
+                      existKeyword
                     />
                   </Tab.Pane>
                 )

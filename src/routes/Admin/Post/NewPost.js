@@ -13,6 +13,7 @@ class NewPost extends React.Component {
         variables: {
           title: values.title,
           category: values.category,
+          keyword: values.keyword,
           description: values.description,
           content: values.content,
           html: values.html
@@ -44,7 +45,11 @@ class NewPost extends React.Component {
                 menuItem: 'New',
                 render: () => (
                   <Tab.Pane attached={false}>
-                    <FormPost submit={this.submit} existDescription />
+                    <FormPost
+                      submit={this.submit}
+                      existDescription
+                      existKeyword
+                    />
                   </Tab.Pane>
                 )
               }
@@ -60,6 +65,7 @@ const newPostMutation = gql`
   mutation(
     $title: String
     $category: String
+    $keyword: String
     $description: String
     $content: JSON
     $html: String
@@ -67,6 +73,7 @@ const newPostMutation = gql`
     createPost(
       title: $title
       category: $category
+      keyword: $keyword
       description: $description
       content: $content
       html: $html

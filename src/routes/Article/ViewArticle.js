@@ -8,35 +8,31 @@ import {
   Image,
   Loader
 } from 'semantic-ui-react';
-import { graphql } from 'react-apollo';
-import { SLUG_POST_QUERY } from '../../graphql/post';
-import './Style.css';
+import { graphql, compose } from 'react-apollo';
+import { SLUG_POST_QUERY, RELATED_POST_QUERY } from '../../graphql/post';
 
 import PageHeader from '../../components/PageHeader';
+import RelatedPost from '../../components/RelatedPost';
 
 const Text = styled.div`
   font-size: 16px;
 `;
 
-const panels = [
-  {
-    title: 'Fler artiklar',
-    content: [
-      'A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome',
-      'guest in many households across the world.'
-    ].join(' ')
-  },
-  {
-    title: 'Jämför',
-    content: [
-      'There are many breeds of dogs. Each breed varies in size and temperament. Owners often select a breed of dog',
-      'that they find to be compatible with their own lifestyle and desires from a companion.'
-    ].join(' ')
-  }
-];
+const Title = styled.h3`
+  font-family: Varela Round;
+  font-weight: 400;
+  font-size: 20px;
+  color: #00b5ad;
+  border-bottom: 1px solid #dededf;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+`;
 
-const ViewArticle = ({ slugPostQuery: { loading, postBySlug: post } }) => {
-  if (loading || !post) {
+const ViewArticle = ({
+  slugPostQuery: { loading, postBySlug: post },
+  relatedPostQuery: { relatedPosts }
+}) => {
+  if (loading || !post || !relatedPosts) {
     return (
       <Dimmer active>
         <Loader>Loading</Loader>
@@ -60,9 +56,27 @@ const ViewArticle = ({ slugPostQuery: { loading, postBySlug: post } }) => {
                   }}
                 />
                 <Text dangerouslySetInnerHTML={{ __html: post.html }} />
+                <Title>You may also like:</Title>
+                <RelatedPost size="16px" list={relatedPosts} />
               </Grid.Column>
               <Grid.Column width={4}>
-                <Accordion styled defaultActiveIndex={0} panels={panels} />
+                <Accordion
+                  styled
+                  defaultActiveIndex={0}
+                  panels={[
+                    {
+                      title: 'Fler artiklar',
+                      content: [<RelatedPost size="13px" list={relatedPosts} />]
+                    },
+                    {
+                      title: 'Jämför',
+                      content: [
+                        'A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome',
+                        'guest in many households across the world.'
+                      ].join(' ')
+                    }
+                  ]}
+                />
               </Grid.Column>
             </Grid.Row>
           </Grid>
@@ -72,12 +86,25 @@ const ViewArticle = ({ slugPostQuery: { loading, postBySlug: post } }) => {
   );
 };
 
-export default graphql(SLUG_POST_QUERY, {
-  name: 'slugPostQuery',
-  options: (props) => ({
-    fetchPolicy: 'network-only',
-    variables: {
-      slug: props.match.params.slug
-    }
+export default compose(
+  graphql(SLUG_POST_QUERY, {
+    name: 'slugPostQuery',
+    options: (props) => ({
+      fetchPolicy: 'network-only',
+      variables: {
+        slug: props.match.params.slug
+      }
+    })
+  }),
+  graphql(RELATED_POST_QUERY, {
+    name: 'relatedPostQuery',
+    options: (props) => ({
+      fetchPolicy: 'network-only',
+      variables: {
+        keyword: props.slugPostQuery.loading
+          ? ''
+          : props.slugPostQuery.postBySlug.keyword
+      }
+    })
   })
-})(ViewArticle);
+)(ViewArticle);

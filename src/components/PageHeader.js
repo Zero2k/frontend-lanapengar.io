@@ -25,6 +25,7 @@ const HomepageHeading = ({ mobile, title, subTitle }) => (
       content={title}
       inverted
       style={{
+        fontFamily: 'Varela Round',
         fontSize: mobile ? '2em' : '2.5em',
         fontWeight: 'normal',
         marginBottom: 0,
@@ -36,6 +37,7 @@ const HomepageHeading = ({ mobile, title, subTitle }) => (
       content={subTitle}
       inverted
       style={{
+        fontFamily: 'Varela Round',
         fontSize: mobile ? '1.2em' : '1.3em',
         fontWeight: 'normal',
         marginTop: mobile ? '0.3em' : '0.8em',
