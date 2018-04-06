@@ -8,7 +8,7 @@ const Text = styled.div`
 
 const Info = ({ content }) => (
   <Container style={{ paddingTop: '20px', paddingBottom: '20px' }}>
-    <Grid stackable>
+    <Grid divided stackable>
       <Grid.Column width={12}>
         {!content ? (
           <div>No Content</div>

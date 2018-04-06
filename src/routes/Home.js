@@ -7,7 +7,7 @@ import {
   Grid,
   Header,
   Image,
-  Form,
+  Statistic,
   Segment
 } from 'semantic-ui-react';
 
@@ -41,6 +41,7 @@ const Home = () => (
               <Image
                 bordered
                 rounded
+                centered
                 size="large"
                 src="https://react.semantic-ui.com/assets/images/wireframe/white-image.png"
               />
@@ -57,7 +58,12 @@ const Home = () => (
       </Segment>
 
       <Segment style={{ padding: '0em' }} vertical>
-        <Grid celled="internally" columns="equal" stackable>
+        <Grid
+          celled="internally"
+          columns="equal"
+          stackable
+          verticalAlign="middle"
+        >
           <Grid.Row textAlign="center">
             <Grid.Column style={{ paddingBottom: '5em', paddingTop: '5em' }}>
               <Header as="h3" style={{ fontSize: '2em' }}>
@@ -67,30 +73,32 @@ const Home = () => (
                 That is what they all say about us
               </p>
             </Grid.Column>
-            <Grid.Column style={{ paddingBottom: '5em', paddingTop: '5em' }}>
+            <Grid.Column
+              style={{
+                paddingBottom: '5em',
+                paddingTop: '5em'
+              }}
+            >
               <Header as="h3" style={{ fontSize: '2em' }}>
-                Få tips och råd om privatekonomi till din <br />e-post varje
-                vecka.
+                Statistik från lanapengar.io
               </Header>
-              <Form
-                widths="equal"
-                onSubmit={this.handleSubmit}
-                style={{ display: 'inline-block' }}
+              <Statistic.Group
+                widths="three"
+                style={{ justifyContent: 'center' }}
               >
-                <Form.Group>
-                  <Form.Input
-                    placeholder="Namn"
-                    name="name"
-                    onChange={this.handleChange}
-                  />
-                  <Form.Input
-                    placeholder="E-post"
-                    name="email"
-                    onChange={this.handleChange}
-                  />
-                  <Form.Button content="Skicka" color="orange" />
-                </Form.Group>
-              </Form>
+                <Statistic color="teal" size="large">
+                  <Statistic.Value>82</Statistic.Value>
+                  <Statistic.Label>Långivare</Statistic.Label>
+                </Statistic>
+                <Statistic color="orange" size="large">
+                  <Statistic.Value>1,343</Statistic.Value>
+                  <Statistic.Label>Lån</Statistic.Label>
+                </Statistic>
+                <Statistic color="violet" size="large">
+                  <Statistic.Value>10,432</Statistic.Value>
+                  <Statistic.Label>Besökare i veckan</Statistic.Label>
+                </Statistic>
+              </Statistic.Group>
             </Grid.Column>
           </Grid.Row>
         </Grid>

@@ -6,7 +6,8 @@ import {
   Accordion,
   Dimmer,
   Image,
-  Loader
+  Loader,
+  List
 } from 'semantic-ui-react';
 import { graphql, compose } from 'react-apollo';
 import { SLUG_POST_QUERY, RELATED_POST_QUERY } from '../../graphql/post';
@@ -66,14 +67,20 @@ const ViewArticle = ({
                   panels={[
                     {
                       title: 'Fler artiklar',
-                      content: [<RelatedPost size="13px" list={relatedPosts} />]
+                      content: [
+                        <RelatedPost size="13px" list={relatedPosts} hideIcon />
+                      ]
                     },
                     {
                       title: 'Jämför',
                       content: [
-                        'A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome',
-                        'guest in many households across the world.'
-                      ].join(' ')
+                        <List relaxed="very" divided>
+                          <List.Item active>Privatlån</List.Item>
+                          <List.Item as="a">Snabblån</List.Item>
+                          <List.Item as="a">Kreditkort</List.Item>
+                          <List.Item as="a">Billån</List.Item>
+                        </List>
+                      ]
                     }
                   ]}
                 />

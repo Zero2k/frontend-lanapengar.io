@@ -9,19 +9,24 @@ const Root = styled.div`
   font-size: ${(props) => props.size};
 `;
 
-const RelatedList = ({ article, size }) => (
+const RelatedList = ({ article, size, hideIcon }) => (
   <Root size={size}>
     <List.Item as={Link} to={`/artikel/${article.category}/${article.slug}`}>
-      <List.Icon name="newspaper" />
+      {!hideIcon ? <List.Icon name="newspaper" /> : ''}
       {article.title}
     </List.Item>
   </Root>
 );
 
-const RelatedPosts = ({ list, size }) => (
+const RelatedPosts = ({ list, size, hideIcon }) => (
   <List>
     {list.map((article) => (
-      <RelatedList key={article.id} size={size} article={article} />
+      <RelatedList
+        key={article.id}
+        size={size}
+        article={article}
+        hideIcon={hideIcon}
+      />
     ))}
   </List>
 );

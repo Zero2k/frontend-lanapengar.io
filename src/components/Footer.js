@@ -15,10 +15,18 @@ const Footer = () => (
               width={8}
               style={{ display: 'flex', justifyContent: 'space-evenly' }}
             >
-              <Icon size="large" name="facebook official" />
-              <Icon size="large" name="twitter" />
-              <Icon size="large" name="google plus" />
-              <Icon size="large" name="linkedin" />
+              <a target="blank" href="http://facebook.com">
+                <Icon size="large" inverted name="facebook official" />
+              </a>
+              <a target="blank" href="http://twitter.com">
+                <Icon size="large" inverted name="twitter" />
+              </a>
+              <a target="blank" href="http://google.com">
+                <Icon size="large" inverted name="google plus" />
+              </a>
+              <a target="blank" href="http://linkedin.com">
+                <Icon size="large" inverted name="linkedin" />
+              </a>
             </Grid.Column>
           </Grid.Row>
         </Grid>
@@ -35,7 +43,7 @@ const Footer = () => (
           celled
           horizontal
           size="huge"
-          style={{ fontFamily: 'Varela Round', fontWeight: 100 }}
+          style={{ fontFamily: 'Varela Round', fontWeight: 400 }}
         >
           <List.Item as="a">Om oss</List.Item>
           <List.Item as={Link} to="/artiklar">
@@ -44,54 +52,24 @@ const Footer = () => (
           <List.Item as="a">Kontakta oss</List.Item>
           <List.Item as="a">Sidkarta</List.Item>
           <List.Item as="a">Villkor</List.Item>
+          <List.Item as="a"> Sekretess </List.Item>
         </List>
-        {/* <Grid divided inverted stackable>
-          <Grid.Row>
-            <Grid.Column width={4}>
-              <Header inverted as="h4" content="Information" />
-              <List link inverted>
-                <List.Item>Om oss</List.Item>
-                <Link to="/artiklar">
-                  <List.Item>Artiklar</List.Item>
-                </Link>
-                <List.Item>Kontakta oss</List.Item>
-                <List.Item>Sidkarta</List.Item>
-              </List>
-            </Grid.Column>
-            <Grid.Column width={2}>
-              <Icon
-                size="huge"
-                bordered
-                style={{ backgroundColor: '#3b5998' }}
-                name="facebook official"
-              />
-            </Grid.Column>
-            <Grid.Column width={2}>
-              <Icon
-                size="huge"
-                bordered
-                style={{ backgroundColor: '#2795e9' }}
-                name="twitter"
-              />
-            </Grid.Column>
-            <Grid.Column width={2}>
-              <Icon
-                size="huge"
-                bordered
-                style={{ backgroundColor: '#dd4b39' }}
-                name="google plus"
-              />
-            </Grid.Column>
-            <Grid.Column width={2}>
-              <Icon
-                size="huge"
-                bordered
-                style={{ backgroundColor: '#0077b5' }}
-                name="linkedin"
-              />
-            </Grid.Column>
-          </Grid.Row>
-        </Grid> */}
+      </Container>
+    </Segment>
+    <Segment
+      vertical
+      tertiary
+      textAlign="center"
+      style={{ padding: '1em 0em' }}
+    >
+      <Container>
+        <p>
+          Vår tjänst är kostnadsfri, dvs helt gratis för dig som användare.
+          Webbplatsen och tjänsten finansieras helt av de långivare som vi
+          jämför. Du betalar alltså inget extra för att du jämför långivare och
+          ansöker om lån genom lanapengar.io.{' '}
+          <a href="/artiklar">Läs mer om hur webbplatsen fungerar</a>.
+        </p>
       </Container>
     </Segment>
   </Segment.Group>
