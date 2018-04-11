@@ -38,6 +38,24 @@ export const SLUG_POST_QUERY = gql`
       description
       content
       html
+      relatedPosts {
+        id
+        title
+        category
+        slug
+      }
+    }
+  }
+`;
+
+export const CATEGORY_POST_QUERY = gql`
+  query($category: String) {
+    postByCategory(category: $category) {
+      id
+      title
+      slug
+      category
+      description
     }
   }
 `;

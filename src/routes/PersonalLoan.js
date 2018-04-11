@@ -17,6 +17,7 @@ import {
 import PageHeader from '../components/PageHeader';
 
 import Info from '../components/InfoSection';
+import Footer from '../components/Footer';
 
 const ListDivided = () => (
   <div>
@@ -232,6 +233,7 @@ const Loan = () => (
         <Info />
       </Container>
     </PageHeader>
+    <Footer />
   </div>
 );
 

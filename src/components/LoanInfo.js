@@ -1,6 +1,21 @@
 import React from 'react';
 import { Grid, Image, Button } from 'semantic-ui-react';
 
+const monthToYear = (monthCount) => {
+  const getPlural = (number, word) => (number === 1 && word.one) || word.other;
+
+  const months = { one: 'mån', other: 'mån' };
+  const years = { one: 'år', other: 'år' };
+  const m = monthCount % 12;
+  const y = Math.floor(monthCount / 12);
+  const result = [];
+
+  y && result.push(`${y} ${getPlural(y, years)}`);
+  m && result.push(`${m} ${getPlural(m, months)}`);
+
+  return result.join(' och ');
+};
+
 const CalculateApr = ({ fee, repInterest, loanType }) => {
   let apr;
   let amount;
@@ -103,7 +118,7 @@ const LoanInfo = ({
         >
           <span>Återbetalningstid</span>
           <p style={{ fontSize }}>
-            {lender.term_min} år till {lender.term_max} år
+            {monthToYear(lender.term_min)} till {monthToYear(lender.term_max)}
           </p>
         </Grid.Column>
         <Grid.Column style={{ padding }}>

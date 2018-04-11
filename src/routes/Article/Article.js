@@ -13,6 +13,7 @@ import { graphql } from 'react-apollo';
 import { Link } from 'react-router-dom';
 
 import PageHeader from '../../components/PageHeader';
+import Footer from '../../components/Footer';
 
 import { POST_QUERY } from '../../graphql/post';
 
@@ -145,6 +146,7 @@ class Article extends React.Component {
             </div>
           </Container>
         </PageHeader>
+        <Footer />
       </div>
     );
   }

@@ -45,7 +45,9 @@ const Footer = () => (
           size="huge"
           style={{ fontFamily: 'Varela Round', fontWeight: 400 }}
         >
-          <List.Item as="a">Om oss</List.Item>
+          <List.Item as={Link} to="/om-oss">
+            Om oss
+          </List.Item>
           <List.Item as={Link} to="/artiklar">
             Artiklar
           </List.Item>

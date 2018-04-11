@@ -13,7 +13,8 @@ module.exports = {
     'max-len': 0,
     'prefer-stateless-function': 0,
     'arrow-parens': 0,
-    'react/no-multi-comp': 0
+    'react/no-multi-comp': 0,
+    'no-unused-expressions': 0
   },
   parser: 'babel-eslint'
 };

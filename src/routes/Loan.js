@@ -17,6 +17,7 @@ import { graphql, compose } from 'react-apollo';
 
 import FilterModal from '../components/FilterModal';
 import ServiceHeader from '../components/ServiceHeader';
+import Footer from '../components/Footer';
 
 import Info from '../components/InfoSection';
 import LoanInfo from '../components/LoanInfo';
@@ -242,6 +243,7 @@ class Loan extends React.Component {
             data={this.updateQuery}
           />
         </ServiceHeader>
+        <Footer />
       </div>
     );
   }
