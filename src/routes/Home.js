@@ -99,7 +99,7 @@ const Home = ({ data: { loading, posts } }) => {
                   påverkar varken räntan eller eventuella avgifter.
                 </p>
                 <Button as={Link} to="/om-oss" basic color="teal">
-                  Mer om oss
+                  Information om tjänsten
                 </Button>
               </Grid.Column>
               <Grid.Column

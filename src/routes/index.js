@@ -86,7 +86,6 @@ export default () => (
         />
         <Route path="/auth" exact component={Auth} />
         <Route path="/login" exact component={Login} />
-        {/* <Route component={NotFound} /> */}
         <Route path="/" exact component={Home} />
         <Route path="/lan" exact component={Loan} />
         <Route path="/privatlan" exact component={PersonalLoan} />

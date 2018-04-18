@@ -122,7 +122,13 @@ const LoanInfo = ({
           </p>
         </Grid.Column>
         <Grid.Column style={{ padding }}>
-          <Button circular size={buttonSize} color="teal" fluid>
+          <Button
+            circular
+            size={buttonSize}
+            color="teal"
+            fluid
+            onClick={() => window.open(lender.url, '_blank')}
+          >
             Ansök nu
           </Button>
         </Grid.Column>
