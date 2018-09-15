@@ -13,4 +13,6 @@
 4. yarn start - start the frontend
 ```
 
-# Further documentation
+# Information
+
+First prototype of [lanapengar.io](https://lanapengar.io) built with React and Apollo Client.
